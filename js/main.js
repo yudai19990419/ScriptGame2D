@@ -7,5 +7,6 @@ window.onload = function(){
     context.font = TEXT_FONT;
     context.fillText("Hello world", 0, 64);
     context.fillText("update file", 20, 100);
-    context.fillTect("push request", 0, 0);
+    context.fillText("push request", 0, 0);
+    // ブランチきってプッシュ
 }
