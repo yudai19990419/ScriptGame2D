@@ -6,4 +6,5 @@ window.onload = function(){
     const context = canvas.getContext("2d");
     context.font = TEXT_FONT;
     context.fillText("Hello world", 0, 64);
+    
 }
