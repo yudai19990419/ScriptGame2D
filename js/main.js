@@ -6,5 +6,5 @@ window.onload = function(){
     const context = canvas.getContext("2d");
     context.font = TEXT_FONT;
     context.fillText("Hello world", 0, 64);
-    
+    context.fillText("update file", 20, 100);
 }
