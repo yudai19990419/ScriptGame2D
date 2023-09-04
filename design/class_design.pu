@@ -1,7 +1,200 @@
-@startuml classDesign
-Class01 <|-- Class02
-Class03 *-- Class04
-Class05 o-- Class06
-Class07 .. Class08
-Class09 -- Class10
+@startuml
+
+class main{
+    - fleamRate:int
+    --
+    + onLoad():void
+    + timer():void
+}
+
+class GameManager{
+    
+}
+
+enum Direction {
+    +right: int
+    +left: int
+    +up: int
+    +down: int
+    +enter: int
+}
+
+interface IScreen {
+    --
+    gameStart(): void
+    gameEnd(): void
+    gameOver(): void
+    input(Direction direction): void
+    isNotification():RequestCode
+}
+
+class ScreenDirector {
+
+}
+
+enum RequestCode {
+    +continue: int
+    +heal: int
+    +enemyAppearance: int
+    +foiundKey: int
+}
+
+class MapController {
+    -playerPointX: int
+    -playerPointY: int
+    -VirtualPointX: int
+    -VirtualPointY: int
+    --
+    +getPlayerCoordinate(): int
+    +movePlayerX(int): int
+    +movePlayerY(int): int  
+}
+
+class MapCreater {
+    -mapMinX: int
+    -mapMaxX: int
+    -mapMinY: int
+    -mapMaxY: int  
+    -map: List<MapElem>
+    --
+    +getMap():List<MapElem>
+    +getMaxX():int
+    +getMinX():int
+    +getMaxY():int
+    +getMinY():int
+}
+
+enum MapElem {
+    +sea: int
+    +river: int
+    +mountain: int
+    +desert: int
+    +forest: int
+    +plain: int
+    +castle: int
+    +village: int
+}
+
+class BattleScreen {
+
+}
+
+class GameOverScreen {
+    --
+    + displayGameOverScreen(): void
+}
+
+class GameStartScreen {
+
+}
+
+interface ICharacter {
+    --
+    + init(): void
+    + attack(int attackDamage): int
+    + escape(): bool
+    + getImage():List<int>
+    + heal(): void
+}
+
+class Character {
+    - characterStatus: CharacterStatus
+    --
+    + init():void
+    + attack(int attackDamage): int
+    + escape(): bool
+    # damageCalcuration(): int
+}
+
+struct CharacterStatus{
+    - hp: int
+    - attack: int 
+    - deffece: int
+    - level: int
+}
+
+class Player {
+    - experiencePoint: int
+}
+
+class Enemy {
+    
+}
+
+class Slime {
+
+}
+
+class Rabbit {
+
+}
+
+class Thief {
+
+}
+
+class Knight {
+
+}
+
+class Boss {
+    
+}
+
+interface IBuild {
+    --
+    event():void
+}
+
+class Building {
+
+}
+
+class Castle {
+    --
+    + Heal(): int
+}
+
+class Village {
+
+}
+
+package Utility {
+    class TextMaker {
+        --
+        + printStatus(CharacterStatus status):void
+        + printTextMessage(String msg):void
+    }
+}
+
+main -- GameManager
+GameManager -- IScreen
+GameManager -- ICharacter
+GameManager -- Direction
+
+IScreen <|.. ScreenDirector
+ScreenDirector -- BattleScreen
+ScreenDirector -- GameOverScreen
+ScreenDirector -- GameStartScreen
+ScreenDirector -- MapController
+ScreenDirector -- RequestCode
+MapController -- MapCreater
+MapController -- IBuild
+MapElem -- MapController
+
+ICharacter <|.. Character
+Character <|-- Enemy
+Character <|-- Player
+Character *-- CharacterStatus
+
+Enemy <|-- Slime
+Enemy <|-- Rabbit
+Enemy <|-- Thief
+Enemy <|-- Knight
+Enemy <|-- Boss
+
+IBuild <|.. Building
+Building <|-- Castle
+Building <|-- Village
+
 @enduml
