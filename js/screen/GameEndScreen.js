@@ -1,6 +1,7 @@
 class GameEndScreen extends IScreen {
 
     constructor(){
+        super();
         this.init();
     }
 

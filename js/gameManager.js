@@ -50,7 +50,7 @@ class GameManager {
      * @param {object} event キーボードのリスナーから渡されるオブジェクト
      */
     input(event){
-        let direction = null;
+        var direction = 0;
         if(event.key == DIRECTION.UP.key){
             direction = DIRECTION.UP.code;
         }
@@ -71,6 +71,7 @@ class GameManager {
             return;
         }
 
-        this.screenDirector.input(direction);
+        console.log("direction [%i]", direction);
+        this.screenDirector.inputDirection(direction);
     }
 }

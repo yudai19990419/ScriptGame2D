@@ -1,6 +1,7 @@
 class GameOverScreen extends IScreen {
 
     constructor(){
+        super();
         this.init();
     }
 

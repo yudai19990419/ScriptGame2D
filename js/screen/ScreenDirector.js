@@ -1,6 +1,7 @@
 class ScreenDirector extends IScreenDirector{
 
     constructor(){
+        super();
         this.mapController = new MapController();
         this.battleScreen = new BattleScreen();
         this.gameOverScreen = new GameOverScreen();
@@ -61,7 +62,8 @@ class ScreenDirector extends IScreenDirector{
     }
 
     // IScreenDirectorの実装
-    input(code) {
+    inputDirection(code) {
+        console.log("input");
         if(this.nowScreen != null){
             // 表示している画面クラスにキー入力の情報を渡す
             this.nowScreen.inputDirection(code);

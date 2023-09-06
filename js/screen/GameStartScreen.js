@@ -1,6 +1,7 @@
 class GameStartScreen extends IScreen {
 
     constructor(){
+        super();
         this.init();
         this.requestCode = -1;
         this.haveNotification = false;
