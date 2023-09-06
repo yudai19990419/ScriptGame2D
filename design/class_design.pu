@@ -19,7 +19,7 @@ enum Direction {
     +enter: int
 }
 
-interface IScreen {
+interface IScreenManager {
     --
     gameStart(): void
     gameEnd(): void
@@ -39,13 +39,19 @@ enum RequestCode {
     +foiundKey: int
 }
 
+interface IScreen {
+    --
+    createScreen():void
+}
+
 class MapController {
     -playerPointX: int
     -playerPointY: int
     -VirtualPointX: int
     -VirtualPointY: int
     --
-    +getPlayerCoordinate(): int
+    +getPlayerPointX(): int
+    +getPlayerPointY(): int
     +movePlayerX(int): int
     +movePlayerY(int): int  
 }
@@ -168,15 +174,16 @@ package Utility {
 }
 
 main -- GameManager
-GameManager -- IScreen
+GameManager -- IScreenManager
 GameManager -- ICharacter
 GameManager -- Direction
 
-IScreen <|.. ScreenDirector
-ScreenDirector -- BattleScreen
-ScreenDirector -- GameOverScreen
-ScreenDirector -- GameStartScreen
-ScreenDirector -- MapController
+IScreenManager <|.. ScreenDirector
+ScreenDirector -- IScreen
+IScreen <|.. BattleScreen
+IScreen <|.. GameOverScreen
+IScreen <|.. GameStartScreen
+IScreen <|.. MapController
 ScreenDirector -- RequestCode
 MapController -- MapCreater
 MapController -- IBuild

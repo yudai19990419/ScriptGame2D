@@ -1,11 +1,16 @@
 "use strict"
-const TEXT_FONT = "50px monospace";
+// 30フレームで定義
+const gFleam = 30;
+// ゲームマネージャークラス
+const manager = new GameManager();
 
+// 画面が起動したら
 window.onload = function(){
-    const canvas = document.getElementById("main");
-    const context = canvas.getContext("2d");
-    context.font = TEXT_FONT;
-    context.fillText("Hello world", 0, 64);
-    context.fillText("change file", 20, 100);
-    context.fillTect("push request", 0, 0);
+    
+    // 定期的に関数を呼び出す(gFleam毎)
+    setInterval( function() {
+        manager.job();
+    }, gFleam);
 }
+
+document.addEventListener('keyup', manager.input);
