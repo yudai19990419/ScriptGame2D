@@ -45,6 +45,4 @@ class IScreen {
     getNotification(){
         throw "実装されていません";
     }
-
-
 }
