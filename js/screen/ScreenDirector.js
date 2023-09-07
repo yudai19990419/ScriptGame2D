@@ -63,7 +63,6 @@ class ScreenDirector extends IScreenDirector{
 
     // IScreenDirectorの実装
     inputDirection(code) {
-        console.log("input");
         if(this.nowScreen != null){
             // 表示している画面クラスにキー入力の情報を渡す
             this.nowScreen.inputDirection(code);

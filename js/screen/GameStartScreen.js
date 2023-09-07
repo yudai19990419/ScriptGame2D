@@ -28,7 +28,9 @@ class GameStartScreen extends IScreen {
 
     // IScreenの実装
     isNotification(){
-        return this.haveNotification;
+        let ret = this.haveNotification;
+        this.haveNotification = false;
+        return ret;
     }
 
     // IScreenの実装
