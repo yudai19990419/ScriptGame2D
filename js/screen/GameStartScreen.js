@@ -9,6 +9,7 @@ class GameStartScreen extends IScreen {
 
     // IScreenの実装
     createScreen(){
+        console.log("GameStartScreen::createScreen()");
         this.context.fillStyle = "#000000"; // 背景色を黒にする
         this.context.fillRect(0, 0, this.width, this.height);
 

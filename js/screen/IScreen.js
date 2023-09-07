@@ -9,7 +9,7 @@ class IScreen {
      * 初期化関数
      */
     init(){
-        this.canvas = document.createElement( "canvas" );
+        this.canvas = document.getElementById("main");
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.context = this.canvas.getContext("2d");
