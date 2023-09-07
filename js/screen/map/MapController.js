@@ -2,9 +2,11 @@ class MapController extends IScreen{
 
     // プレイヤーの座標を生成
     // 一旦 Virtualの実装は保留
-    constructor(playerPointX, playerPointY) {
-        this.playerPointX = playerPointX;
-        this.playerPointY = playerPointY;
+    constructor() {
+        super();
+        this.playerPointX = 0;
+        this.playerPointY = 0;
+        this.init();
     }
 
     getPlayerPointX() {

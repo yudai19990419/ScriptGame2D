@@ -1,7 +1,10 @@
 class IScreen {
-    height = 120;
-    width = 128;
 
+    constructor(){
+        this.width = 128;
+        this.height = 120;
+    }
+    
     /**
      * 初期化関数
      */
@@ -9,34 +12,35 @@ class IScreen {
         this.canvas = document.createElement( "canvas" );
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-        this.context = this.canvas.getContext( "2d" );
+        this.context = this.canvas.getContext("2d");
     }
 
     /**
-     * 画面作成関数
+     * 画面描画関数
      */
-     createScreen(){
+    createScreen(){
         throw "実装されていません";
     }
 
     /**
-     * 画面作成関数
+     * キーボード入力のコールバック関数
+     * @param {int} direction DIRECTION(enum)
      */
     inputDirection(direction){
         throw "実装されていません";
     }
 
     /**
-     * スクリーンクラス側からの通知確認関数
-     * @return bool値
+     * 通知があったかの確認関数
+     * @returns {boolean}
      */
-     isNotification(){
+    isNotification(){
         throw "実装されていません";
     }
 
     /**
-     * スクリーンクラス側からの通知取得関数
-     * @return REQUEST_CODE(Enum)
+     * 通知取得関数
+     * @returns {int} REQUEST_CODE
      */
     getNotification(){
         throw "実装されていません";

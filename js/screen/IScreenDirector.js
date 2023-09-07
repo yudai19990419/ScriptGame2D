@@ -32,7 +32,7 @@ class IScreenDirector {
      * キーボード入力通知関数
      * @param {int} code EnumのDIRECTIONのcode
      */
-    input(code){
+    inputDirection(code){
         throw "実装されていません";
     }
 

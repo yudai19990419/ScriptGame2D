@@ -1,6 +1,7 @@
 class BattleScreen extends IScreen {
 
     constructor(){
+        super();
         this.init();
     }
 
