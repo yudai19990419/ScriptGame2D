@@ -17,11 +17,11 @@ class MapController extends IScreen{
 
     // 引数の値だけプレイヤーを移動
     movePlayerX(num) {
-        this.playerPointX = this.playerPointX + num;
+        this.playerPointX += num;
     }
 
     movePlayerY(num) {
-        this.playerPointY = this.playerPointY + num;
+        this.playerPointY += num;
     }
 
     // コマンド入力によるプレイヤーの移動
@@ -40,7 +40,6 @@ class MapController extends IScreen{
                 this.movePlayerX(-1);
                 break;
             default: throw new Error("コマンドが不正です。");
-                break;
         }
     }
 
