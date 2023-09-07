@@ -10,10 +10,12 @@ class GameStartScreen extends IScreen {
     // IScreenの実装
     createScreen(){
         console.log("GameStartScreen::createScreen()");
+        // 画面をクリアする
+        this.resetScreen();
         this.context.fillStyle = "#000000"; // 背景色を黒にする
         this.context.fillRect(0, 0, this.width, this.height);
 
-        this.context.font = "12px monospace";
+        this.context.font = "30px monospace";
 	    this.context.fillStyle = "#ffffff";
         this.context.fillText("Enterでゲームスタート", 40, 40);
     }

@@ -135,7 +135,9 @@ const REQUEST_CODE = {
     BUTTLE : 2,
     BOSS :  3,
     GET_KEY : 4,
-    GAME_START : 5
+    GAME_START : 5,
+    GAME_END:6,
+    RETURN_MAP:7,
 };
 
 const MAP_ELEM = {
@@ -146,5 +148,9 @@ const MAP_ELEM = {
     FOREST : 4,
     PLAIN : 5,
     CASTLE : 6,
-    VILLAGE : 7
+    VILLAGE : 7,
+    ROCKY_MOUNTAIN : 8,
+    CAVE : 9,
+    BOSS : 10,
+    DOOR : 11,
 };

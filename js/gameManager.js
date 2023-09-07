@@ -12,6 +12,16 @@ class GameManager {
         this.screenDirector.init();
     }
 
+    
+    /**
+     * 画面サイズの設定関数
+     * @param {int} width 横幅
+     * @param {int} height 縦幅
+     */
+     setScreenSize(width, height){
+        this.screenDirector.setScreenSize(width, height);
+    }
+
     /**
      * 定期的に呼ばれる関数(ゲームの状態監視を行う)
      */
@@ -39,6 +49,15 @@ class GameManager {
             case REQUEST_CODE.BOSS:
                 break;
             case REQUEST_CODE.GET_KEY:
+                break;
+            case REQUEST_CODE.GAME_START:
+                this.screenDirector.gameStart();
+                break;
+            case REQUEST_CODE.GANE_END:
+                this.screenDirector.gameEnd();
+                break;
+            case REQUEST_CODE.RETURN_MAP:
+                this.screenDirector.moveMapScreen();
                 break;
             case REQUEST_CODE.GAME_START:
                 break;

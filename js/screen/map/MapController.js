@@ -7,6 +7,7 @@ class MapController extends IScreen{
         this.playerPointX = 0;
         this.playerPointY = 0;
         this.init();
+        this.mapCreater = new MapCreater(this.playerPointX, this.playerPointY);
     }
 
     getPlayerPointX() {
@@ -41,8 +42,14 @@ class MapController extends IScreen{
             case DIRECTION.LEFT.code: 
                 this.movePlayerX(-1);
                 break;
-            default: throw new Error("コマンドが不正です。");
+            default: 
+                console.log("undefined code [%i]", direction);
         }
+    }
+
+    createScreen(){
+        this.resetScreen();
+        this.mapCreater.drawTileMap(this.context);
     }
 
     isNotification(){

@@ -22,9 +22,9 @@ class ScreenDirector extends IScreenDirector{
 
     // IScreenDirectorの実装
     gameStart(){
+        console.log("gameStart()");
         // マップ画面を表示する
-        this.nowScreen = this.mapController;
-        this.nowScreen.createScreen();
+        this.moveMapScreen();
     }
 
     // IScreenDirectorの実装
@@ -38,6 +38,17 @@ class ScreenDirector extends IScreenDirector{
     gameOver(){
         // ゲームオーバー画面を表示する
         this.nowScreen = this.gameOver;
+        this.nowScreen.createScreen();
+    }
+
+    // IScreenDirectorの実装
+    moveMapScreen() {
+        if(this.nowScreen == this.mapController){
+            // すでにマップを表示している場合は何もしない
+            return;
+        }
+        // マップ画面を表示する
+        this.nowScreen = this.mapController;
         this.nowScreen.createScreen();
     }
 
@@ -63,9 +74,17 @@ class ScreenDirector extends IScreenDirector{
 
     // IScreenDirectorの実装
     inputDirection(code) {
+        console.log("input");
         if(this.nowScreen != null){
             // 表示している画面クラスにキー入力の情報を渡す
             this.nowScreen.inputDirection(code);
+        }
+    }
+
+    // IScreenDirectorの実装
+    setScreenSize(width, height){
+        if(this.nowScreen != null){
+            this.nowScreen.setScreenSize(width, height);
         }
     }
 }

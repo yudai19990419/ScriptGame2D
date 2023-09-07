@@ -37,6 +37,13 @@ class IScreenDirector {
     }
 
     /**
+     * マップ画面を表示する
+     */
+    moveMapScreen(){
+        throw "実装されていません";
+    }
+
+    /**
      * スクリーンクラス側からの通知確認関数
      * @return bool値
      */
@@ -49,6 +56,15 @@ class IScreenDirector {
      * @return REQUEST_CODE(Enum)
      */
     getNotification(){
+        throw "実装されていません";
+    }
+
+    /**
+     * 画面サイズの設定関数
+     * @param {int} width 横幅
+     * @param {int} height 縦幅
+     */
+     setScreenSize(width, height){
         throw "実装されていません";
     }
 }

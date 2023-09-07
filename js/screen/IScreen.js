@@ -1,8 +1,8 @@
 class IScreen {
 
     constructor(){
-        this.width = 128;
-        this.height = 120;
+        this.width = 120;
+        this.height = 128;
     }
     
     /**
@@ -44,5 +44,33 @@ class IScreen {
      */
     getNotification(){
         throw "実装されていません";
+    }
+
+    /**
+     * 画面サイズの設定関数
+     * @param {int} width 横幅
+     * @param {int} height 縦幅
+     */
+    setScreenSize(width, height){
+        this.canvas.width = width;
+        this.canvas.height = height;
+        this.context.imageSmoothingEnabled = this.contextmsImageSmoothingEnabled = 0;
+
+        this.width = this.canvas.width;
+        this.height = this.canvas.height;
+
+        if( this.width / 120 < this.height / 128 ){
+            this.height = this.width * 128 / 120;
+        }else{
+            this.width  = this.height * 120 / 128;
+        }
+    }
+
+    /**
+     * 画面全体クリア関数
+     */
+    resetScreen(){
+        // 画面全体をクリアする
+        this.context.clearRect(0,0, this.canvas.width, this.canvas.height);
     }
 }
