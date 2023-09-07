@@ -107,6 +107,22 @@ const DIRECTION = defineEnum({
     ENTER : {
         key : 'Enter',
         code : 4
+    },
+    ARROW_UP : {
+        key : 'ArrowUp',
+        code : 0
+    },
+    ARROW_DOWN : {
+        key : 'ArrowDown',
+        code : 1
+    },
+    ARROW_RIGHT : {
+        key : 'ArrowRight',
+        code : 2
+    },
+    ARROW_LEFT : {
+        key : 'ArrowLeft',
+        code : 3
     }
 });
 

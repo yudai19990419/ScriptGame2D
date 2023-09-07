@@ -40,6 +40,8 @@ class GameManager {
                 break;
             case REQUEST_CODE.GET_KEY:
                 break;
+            case REQUEST_CODE.GAME_START:
+                break;
             default:
                 console.log("undefined code [%i]", code);
         }
@@ -65,6 +67,18 @@ class GameManager {
         }
         else if(event.key == DIRECTION.ENTER.key){
             direction = DIRECTION.ENTER.code;
+        }
+        else if(event.key == DIRECTION.ARROW_UP.key){
+            direction = DIRECTION.ARROW_UP.code
+        }
+        else if(event.key == DIRECTION.ARROW_DOWN.key){
+            direction = DIRECTION.ARROW_DOWN.code
+        }
+        else if(event.key == DIRECTION.ARROW_RIGHT.key){
+            direction = DIRECTION.ARROW_RIGHT.code
+        }
+        else if(event.key == DIRECTION.ARROW_LEFT.key){
+            direction = DIRECTION.ARROW_LEFT.code
         }
         else{
             console.log("input undefined key [%s]", event.key);

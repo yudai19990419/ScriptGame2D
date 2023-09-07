@@ -14,7 +14,11 @@ window.onload = function(){
         manager.job();
     }, gFleam);
 
+    function inputIvent(event) {
+        manager.input(event);
+    }
+
     // TODO:ここが動かないため修正必須
     // 非同期の処理のため、クラスが定義されていないことになる
-    document.addEventListener('keyup', manager.input);
+    document.addEventListener('keydown', inputIvent);
 }
