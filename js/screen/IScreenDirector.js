@@ -67,4 +67,28 @@ class IScreenDirector {
      setScreenSize(width, height){
         throw "実装されていません";
     }
+
+    /**
+     * Playerのステータスをセットする関数
+     * @returns {CharacterStatus} キャラクターのステータス
+     */
+     setPlayerStatus(status){
+        throw "実装されていません";
+    }
+
+    /**
+     * 敵キャラのステータスをセットする関数
+     * @returns {CharacterStatus} キャラクターのステータス
+     */
+    setEnemyStatus(status){
+        throw "実装されていません";
+    }
+
+    /**
+     * 逃げた結果をセットする関数
+     * @returns {bool} 成功・失敗
+     */
+    setEscapeResult(result){
+        throw "実装されていません";
+    }
 }

@@ -3,8 +3,10 @@
 
     constructor (x, y) {
         // 画像の読み込み
-        this.tilesetImage = new Image();
-        this.tilesetImage.src = "img/map.png"; // タイル画像のパス
+        this.imgMap = new Image();
+        this.imgMap.src = "img/map.png"; // マップ画像のパス
+        this.imgPlayer = new Image();
+        this.imgPlayer.src = "img/player.png";    //プレイヤー画像のパス
 
         this.CorrdinateX = x;
         this.CorrdinateY = y;
@@ -50,40 +52,35 @@
         [7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7],
     ];
 
+    // 画像のパラメータ設定 (n * n 行列を仮定)
     tileSize = 32; // タイルサイズ (ピクセル)
-    drawTileMap(context) {
+    cropSize = 8;    // トリミングするサイズ
+    line = 4;       //行数
+    column = 4;     //列数
+
+    displayMap(context) { 
         for (let y = 0; y < this.mapData.length; y++) {
             for (let x = 0; x < this.mapData[y].length; x++) {
-                const sx = this.calcSx(this.mapData[y][x]);
-                const sy = this.calcSy(this.mapData[y][x]);
-                this.drawMap(sx, sy, x, y, context);
+                this.drawMap(x, y, this.mapData[y][x], context);
             }    
         }
+        context.drawImage(this.imgPlayer, 0, 0, 8, 9, 512, 512, 32, 32);
     };
 
-    drawMap(sx, sy, x, y, context) {
-        context.drawImage(this.tilesetImage, sx, sy, 8, 8, 
+    drawMap(x, y, mapData, context) {
+        const sx = this.calcSx(mapData);
+        const sy = this.calcSy(mapData);
+        context.drawImage(this.imgMap, sx, sy, this.cropSize, this.cropSize, 
             x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
     }
 
     calcSx(numInMapData) {
-        return 8 * (numInMapData % 4);
+        return (numInMapData % this.column) * this.cropSize;
     }
 
     calcSy(numInMapData) {
-        const multiple4 = numInMapData / 4;
-        if(multiple4 >= 1) {
-            if (multiple4 >= 2) {
-                if (multiple4 >= 3) {
-                    return 24
-                } else {
-                    return 16;
-                }
-            } else {
-                return 8;
-            }
-        } 
-        return 0;
+        const quotient = Math.floor((numInMapData / this.line));
+        return quotient * this.cropSize;
     }
  }
    

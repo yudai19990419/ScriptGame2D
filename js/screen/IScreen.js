@@ -47,6 +47,30 @@ class IScreen {
     }
 
     /**
+     * Playerのステータスをセットする関数
+     * @returns {CharacterStatus} キャラクターのステータス
+     */
+    setPlayerStatus(status){
+        return;
+    }
+
+    /**
+     * 敵キャラのステータスをセットする関数
+     * @returns {CharacterStatus} キャラクターのステータス
+     */
+    setEnemyStatus(status){
+        return;
+    }
+
+    /**
+     * 逃げた結果をセットする関数
+     * @returns {bool} 成功・失敗
+     */
+    setEscapeResult(result){
+        return;
+    }
+
+    /**
      * 画面サイズの設定関数
      * @param {int} width 横幅
      * @param {int} height 縦幅

@@ -88,4 +88,25 @@ class ScreenDirector extends IScreenDirector{
             this.nowScreen.createScreen();
         }
     }
+
+    // IScreenDirectorの実装
+     setPlayerStatus(status){
+        if(this.nowScreen != null){
+            this.nowScreen.setPlayerStatus(status);
+        }
+    }
+
+    // IScreenDirectorの実装
+    setEnemyStatus(status){
+        if(this.nowScreen != null){
+            this.nowScreen.setEnemyStatus(status);
+        }
+    }
+
+    // IScreenDirectorの実装
+    setEscapeResult(result){
+        if(this.nowScreen != null){
+            this.nowScreen.setEscapeResult(status);
+        }
+    }
 }

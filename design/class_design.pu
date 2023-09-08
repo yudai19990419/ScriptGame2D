@@ -94,7 +94,7 @@ class GameStartScreen {
 
 }
 
-interface ICharacter {
+abstract Character {
     --
     + init(): void
     + attack(int attackDamage): int
@@ -103,13 +103,8 @@ interface ICharacter {
     + heal(): void
 }
 
-class Character {
-    - characterStatus: CharacterStatus
-    --
-    + init():void
-    + attack(int attackDamage): int
-    + escape(): bool
-    # damageCalcuration(): int
+class CharacterManager {
+
 }
 
 struct CharacterStatus{
@@ -175,7 +170,7 @@ package Utility {
 
 main -- GameManager
 GameManager -- IScreenManager
-GameManager -- ICharacter
+GameManager -- CharacterManager
 GameManager -- Direction
 
 IScreenManager <|.. ScreenDirector
@@ -189,7 +184,7 @@ MapController -- MapCreater
 MapController -- IBuild
 MapElem -- MapController
 
-ICharacter <|.. Character
+CharacterManager -- Character
 Character <|-- Enemy
 Character <|-- Player
 Character *-- CharacterStatus

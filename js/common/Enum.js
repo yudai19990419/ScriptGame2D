@@ -138,6 +138,9 @@ const REQUEST_CODE = {
     GAME_START : 5,
     GAME_END:6,
     RETURN_MAP:7,
+    ATTACK_PLAYER:8,
+    ATTACK_ENEMY:9,
+    ESCAPE:10
 };
 
 const MAP_ELEM = {
@@ -154,3 +157,11 @@ const MAP_ELEM = {
     BOSS : 10,
     DOOR : 11,
 };
+
+const ENEMY = {
+    SLIME : 0,
+    RABBIT : 1,
+    KNIGHT : 2,
+    THIEF : 3,
+    BOSS : 4,
+}

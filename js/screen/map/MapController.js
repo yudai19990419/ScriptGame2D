@@ -7,7 +7,6 @@ class MapController extends IScreen{
         this.playerPointX = 0;
         this.playerPointY = 0;
         this.init();
-        this.mapCreater = new MapCreater(this.playerPointX, this.playerPointY);
     }
 
     getPlayerPointX() {
@@ -50,7 +49,8 @@ class MapController extends IScreen{
     createScreen(){
         console.log("MapController::createScreen()");
         this.resetScreen();
-        this.mapCreater.drawTileMap(this.context);
+        this.mapCreater = new MapCreater(this.playerPointX, this.playerPointY);
+        this.mapCreater.displayMap(this.context);
     }
 
     isNotification(){

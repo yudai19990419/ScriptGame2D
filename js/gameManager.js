@@ -1,6 +1,7 @@
 class GameManager {
     constructor(){
         this.screenDirector = new ScreenDirector();
+        this.characterManager = new CharacterManager();
         this.init();
     }
 
@@ -43,8 +44,24 @@ class GameManager {
             case REQUEST_CODE.CONTINUE :
                 break;
             case REQUEST_CODE.HEAL:
+                this.characterManager.healPlayer();
+                this.#setStatusToScreen();
                 break;
             case REQUEST_CODE.BUTTLE:
+                this.characterManager.buttleStart();
+                this.#setStatusToScreen();
+                break;
+            case REQUEST_CODE.ATTACK_PLAYER:
+                this.characterManager.attackPlayer();
+                this.#setStatusToScreen();
+                break;
+            case REQUEST_CODE.ATTACK_ENEMY:
+                this.characterManager.attackEnemy();
+                this.#setStatusToScreen();
+                break;
+            case REQUEST_CODE.ESCAPE:
+                this.screenDirector.setEscapeResult(this.characterManager.escape());
+                this.#setStatusToScreen();
                 break;
             case REQUEST_CODE.BOSS:
                 break;
@@ -59,11 +76,14 @@ class GameManager {
             case REQUEST_CODE.RETURN_MAP:
                 this.screenDirector.moveMapScreen();
                 break;
-            case REQUEST_CODE.GAME_START:
-                break;
             default:
                 console.log("undefined code [%i]", code);
         }
+    }
+
+    #setStatusToScreen(){
+        this.screenDirector.setPlayerStatus(this.characterManager.getPlayerStatus());
+        this.screenDirector.setEnemyStatus(this.characterManager.getEnemyStatus);
     }
 
     /**
