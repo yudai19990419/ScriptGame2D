@@ -15,15 +15,7 @@
         return gMap[x][y];
     } 
 
-
-    // マップデータ
     mapData = [
-        [1, 1, 1, 1],
-        [1, 0, 0, 1],
-        [1, 0, 1, 1],
-        [1, 1, 1, 1],
-    ];
-    /*const mapData = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -56,16 +48,42 @@
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 7, 0, 0, 0, 0, 0, 0, 0, 0],
         [7,15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 0, 0, 0, 0, 0],
         [7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7],
-    ];*/
+    ];
 
     tileSize = 32; // タイルサイズ (ピクセル)
     drawTileMap(context) {
         for (let y = 0; y < this.mapData.length; y++) {
             for (let x = 0; x < this.mapData[y].length; x++) {
-            const tileX = this.mapData[y][x] * this.tileSize; // タイル画像のX座標
-            context.drawImage(this.tilesetImage, tileX, 0, 8, 8, x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
-            }
+                const sx = this.calcSx(this.mapData[y][x]);
+                const sy = this.calcSy(this.mapData[y][x]);
+                this.drawMap(sy, sx, x, y, context);
+            }    
         }
+    };
+
+    calcSx(numInMapData) {
+        const multiple4 = numInMapData / 4;
+        if(multiple4 >= 1) {
+            if (multiple4 >= 2) {
+                if (multiple4 >= 3) {
+                    return 24
+                } else {
+                    return 16;
+                }
+            } else {
+                return 8;
+            }
+        } 
+        return 0;
+    }
+
+    calcSy(numInMapData) {
+        return 8 * (numInMapData % 4);
+    }
+
+    drawMap(sx, sy, x, y, context) {
+        context.drawImage(this.tilesetImage, sx, sy, 8, 8, 
+            x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
     }
     
  }
