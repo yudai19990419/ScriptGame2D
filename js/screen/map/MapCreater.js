@@ -56,12 +56,21 @@
             for (let x = 0; x < this.mapData[y].length; x++) {
                 const sx = this.calcSx(this.mapData[y][x]);
                 const sy = this.calcSy(this.mapData[y][x]);
-                this.drawMap(sy, sx, x, y, context);
+                this.drawMap(sx, sy, x, y, context);
             }    
         }
     };
 
+    drawMap(sx, sy, x, y, context) {
+        context.drawImage(this.tilesetImage, sx, sy, 8, 8, 
+            x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
+    }
+
     calcSx(numInMapData) {
+        return 8 * (numInMapData % 4);
+    }
+
+    calcSy(numInMapData) {
         const multiple4 = numInMapData / 4;
         if(multiple4 >= 1) {
             if (multiple4 >= 2) {
@@ -76,15 +85,5 @@
         } 
         return 0;
     }
-
-    calcSy(numInMapData) {
-        return 8 * (numInMapData % 4);
-    }
-
-    drawMap(sx, sy, x, y, context) {
-        context.drawImage(this.tilesetImage, sx, sy, 8, 8, 
-            x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
-    }
-    
  }
    
