@@ -48,6 +48,7 @@ class MapController extends IScreen{
     }
 
     createScreen(){
+        console.log("MapController::createScreen()");
         this.resetScreen();
         this.mapCreater.drawTileMap(this.context);
     }

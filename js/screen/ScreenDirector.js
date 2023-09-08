@@ -85,6 +85,7 @@ class ScreenDirector extends IScreenDirector{
     setScreenSize(width, height){
         if(this.nowScreen != null){
             this.nowScreen.setScreenSize(width, height);
+            this.nowScreen.createScreen();
         }
     }
 }

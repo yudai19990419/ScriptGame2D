@@ -21,7 +21,7 @@ window.onload = function(){
     }
 
     function resize(){
-        // manager.setScreenSize(window.innerWidth, window.innerHeight);
+        manager.setScreenSize(window.innerWidth, window.innerHeight);
     }
 
     // TODO:ここが動かないため修正必須
