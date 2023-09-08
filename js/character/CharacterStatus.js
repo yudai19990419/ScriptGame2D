@@ -7,34 +7,34 @@ class CharacterStatus {
     }
 
     get hp(){
-        return this.hp;
+        return this._hp;
     }
 
     get attack(){
-        return this.attack;
+        return this._attack;
     }
 
     get deffence(){
-        return this.deffence;
+        return this._deffence;
     }
 
     get level(){
-        return this.level;
+        return this._level;
     }
 
     set hp(hp){
-        this.hp = hp;
+        this._hp = hp;
     }
 
     set attack(attack){
-        this.attack = attack;
+        this._attack = attack;
     }
 
     set deffence(deffence){
-        this.deffence = deffence;
+        this._deffence = deffence;
     }
 
     set level(level){
-        this.level = level;
+        this._level = level;
     }
 }
