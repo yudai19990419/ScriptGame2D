@@ -75,10 +75,30 @@ class CharacterManager {
     }
 
     /**
+     * 敵キャラが取得可能かの確認関数
+     * @returns {bool} 可能・不可能
+     */
+    canGetEnemy(){
+        if(this.enemy == null){
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Playerの回復
      */
     healPlayer(){
         this.player.heal();
+    }
+
+    /**
+     * 敵キャラを倒したことの通知関数
+     */
+    enemyDown(){
+        var value = this.enemy.getStatus().experiencePoint;
+        this.player.addExperiencePoint(value);
     }
 
     /**
@@ -123,9 +143,9 @@ class CharacterManager {
             minLv = 1;
         }
 
-        var randumEnemy = Math.floor(Math.random() * enemyList.length);
-        var randumLv = Math.floor(Math.random() * (maxLv - minLv) + minLv);
-        this.#loadEnemyClass(enemyList[randumEnemy], randumLv);
+        var randomEnemy = Math.floor(Math.random() * enemyList.length);
+        var randomLv = Math.floor(Math.random() * (maxLv - minLv) + minLv);
+        this.#loadEnemyClass(enemyList[randomEnemy], randomLv);
     }
 
     /**

@@ -12,7 +12,8 @@ class Character {
      * 初期化関数
      */
     init(){
-        throw "実装されていません";
+        // レベルに対してのステータスにする
+        updateStatus();
     }
 
     /**
@@ -103,5 +104,8 @@ class Character {
         this.maxHp = this.status.hp;
         this.status.attack = Math.floor(this.status.attack * (coefficient * 1.3) + 1); 
         this.status.deffence = Math.floor(this.status.deffence * (coefficient * 1.2) + 1); 
+
+        // 経験値のMAX値はレベルが上がる毎に1.5倍
+        this.status.MaxExperiencePoint *= 1.5;
     }
 }

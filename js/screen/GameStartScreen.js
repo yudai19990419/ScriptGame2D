@@ -11,7 +11,7 @@ class GameStartScreen extends IScreen {
     createScreen(){
         console.log("GameStartScreen::createScreen()");
         // 画面をクリアする
-        this.resetScreen();
+        this.resetScreen(this.context);
         this.context.fillStyle = "#000000"; // 背景色を黒にする
         this.context.fillRect(0, 0, this.width, this.height);
 
@@ -38,5 +38,10 @@ class GameStartScreen extends IScreen {
     // IScreenの実装
     getNotification(){
         return this.requestCode;
+    }
+
+    setPlayerStatus(status){
+        // 何もしない
+        return;
     }
 }

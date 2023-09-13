@@ -24,4 +24,9 @@ class GameOverScreen extends IScreen {
     getNotification(){
 
     }
+
+    setPlayerStatus(status){
+        // 何もしない
+        return;
+    }
 }

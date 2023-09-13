@@ -2,6 +2,7 @@ class Slime extends Enemy {
 
     constructor(level) {
         super();
+        this.status.character = ENEMY.SLIME;
         this.status.hp = 5;
         this.status.attack = 1;
         this.status.deffence = 1;

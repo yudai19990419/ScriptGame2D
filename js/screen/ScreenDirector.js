@@ -17,7 +17,7 @@ class ScreenDirector extends IScreenDirector{
     init(){
         // ゲーム開始画面を表示する
         this.nowScreen = this.gameStartScreen;
-        this.nowScreen.createScreen();
+        this.nowScreen.updateScreen();
     }
 
     // IScreenDirectorの実装
@@ -31,21 +31,21 @@ class ScreenDirector extends IScreenDirector{
     gameEnd(){
         // ゲーム終了画面を表示する
         this.nowScreen = this.gameEndScreen;
-        this.nowScreen.createScreen();
+        this.nowScreen.updateScreen();
     }
 
     // IScreenDirectorの実装
     gameOver(){
         // ゲームオーバー画面を表示する
         this.nowScreen = this.gameOver;
-        this.nowScreen.createScreen();
+        this.nowScreen.updateScreen();
     }
 
     // IScreenDirectorの実装
     battleStart(){
         // 戦闘画面を表示する
         this.nowScreen = this.battleScreen;
-        this.nowScreen.createScreen();
+        this.nowScreen.updateScreen();
     }
 
     // IScreenDirectorの実装
@@ -56,7 +56,7 @@ class ScreenDirector extends IScreenDirector{
         }
         // マップ画面を表示する
         this.nowScreen = this.mapController;
-        this.nowScreen.createScreen();
+        this.nowScreen.updateScreen();
     }
 
     // IScreenDirectorの実装
@@ -92,7 +92,7 @@ class ScreenDirector extends IScreenDirector{
     setScreenSize(width, height){
         if(this.nowScreen != null){
             this.nowScreen.setScreenSize(width, height);
-            this.nowScreen.createScreen();
+            this.nowScreen.updateScreen();
         }
     }
 
@@ -104,10 +104,12 @@ class ScreenDirector extends IScreenDirector{
     }
 
     // IScreenDirectorの実装
-    setEnemyStatus(status){
+    setEnemy(image, corrdinate, status){
         if(this.nowScreen != null){
             this.nowScreen.setEnemyStatus(status);
         }
+
+        this.battleScreen.setEnemyImage(image, corrdinate);
     }
 
     // IScreenDirectorの実装
@@ -115,5 +117,10 @@ class ScreenDirector extends IScreenDirector{
         if(this.nowScreen != null){
             this.nowScreen.setEscapeResult(result);
         }
+    }
+
+    // IScreenDirectorの実装
+    getMapElem(){
+        return this.mapController.getMapElem();
     }
 }

@@ -2,6 +2,7 @@ class Rabbit extends Enemy {
 
     constructor(level) {
         super();
+        this.status.character = ENEMY.RABBIT;
         this.status.hp = 8;
         this.status.attack = 2;
         this.status.deffence = 2;

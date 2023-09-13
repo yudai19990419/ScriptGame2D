@@ -77,7 +77,7 @@ class IScreenDirector {
 
     /**
      * Playerのステータスをセットする関数
-     * @returns {CharacterStatus} キャラクターのステータス
+     * @param {CharacterStatus} status キャラクターのステータス
      */
      setPlayerStatus(status){
         throw "実装されていません";
@@ -85,17 +85,26 @@ class IScreenDirector {
 
     /**
      * 敵キャラのステータスをセットする関数
-     * @returns {CharacterStatus} キャラクターのステータス
+     * @param {} image 敵キャラの画像
+     * @param {CharacterStatus} status キャラクターのステータス
      */
-    setEnemyStatus(status){
+    setEnemy(image, corrdinate, status){
         throw "実装されていません";
     }
 
     /**
      * 逃げた結果をセットする関数
-     * @returns {bool} 成功・失敗
+     * @param {bool} result 成功・失敗
      */
     setEscapeResult(result){
+        throw "実装されていません";
+    }
+
+    /**
+     * マップの現在マス取得関数
+     * @return {MapElem} マップの現在マス
+     */
+    getMapElem(){
         throw "実装されていません";
     }
 }

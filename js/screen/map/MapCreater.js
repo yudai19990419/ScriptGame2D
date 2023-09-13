@@ -7,6 +7,7 @@
         this.imgMap.src = "img/map.png"; // マップ画像のパス
         this.imgPlayer = new Image();
         this.imgPlayer.src = "img/player.png";    //プレイヤー画像のパス
+        //this.tileSize = 32;
 
         this.CorrdinateX = x;
         this.CorrdinateY = y;
@@ -59,19 +60,21 @@
     column = 4;     //列数
 
     displayMap(context) { 
+        console.log("MapCreater:displayMap()")
         for (let y = 0; y < this.mapData.length; y++) {
             for (let x = 0; x < this.mapData[y].length; x++) {
                 this.drawMap(x, y, this.mapData[y][x], context);
             }    
         }
-        context.drawImage(this.imgPlayer, 0, 0, 8, 9, 512, 512, 32, 32);
     };
 
     drawMap(x, y, mapData, context) {
+        console.log("Mapcreater: drawMap()");
         const sx = this.calcSx(mapData);
         const sy = this.calcSy(mapData);
         context.drawImage(this.imgMap, sx, sy, this.cropSize, this.cropSize, 
             x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
+        console.log("Mapcreater: drawImage()");
     }
 
     calcSx(numInMapData) {
@@ -81,6 +84,17 @@
     calcSy(numInMapData) {
         const quotient = Math.floor((numInMapData / this.line));
         return quotient * this.cropSize;
+    }
+
+    //プレイヤー画像設定
+    pSx = 0;
+    pSy = 0;
+    pCropWidth = 8;
+    pCropHeight = 9;
+
+    displayPlayer(context, playerX, playerY) {
+        context.drawImage(this.imgPlayer, this.pSx, this.pSy, this.pCropWidth, this.pCropHeight,
+                 playerX, playerY, this.tileSize, this.tileSize);
     }
  }
    

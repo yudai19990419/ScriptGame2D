@@ -5,6 +5,8 @@ class CharacterStatus {
         this._attack = 2;
         this._deffence = 1;
         this._level = 1;
+        this.experiencePoint = 0;
+        this.maxExperiencePoint = 30;
     }
 
     get character(){
@@ -27,6 +29,14 @@ class CharacterStatus {
         return this._level;
     }
 
+    get experiencePoint(){
+        return this._experiencePoint;
+    }
+
+    get maxExperiencePoint(){
+        return this._maxExperiencePoint;
+    }
+
     set character(character){
         this._character = character;
     }
@@ -45,5 +55,13 @@ class CharacterStatus {
 
     set level(level){
         this._level = level;
+    }
+
+    set experiencePoint(experiencePoint){
+        this._experiencePoint = experiencePoint;
+    }
+
+    set maxExperiencePoint(maxExperiencePoint){
+        this._maxExperiencePoint = maxExperiencePoint;
     }
 }

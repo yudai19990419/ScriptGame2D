@@ -45,24 +45,19 @@ class GameManager {
                 break;
             case REQUEST_CODE.HEAL:
                 this.characterManager.healPlayer();
-                this.#setStatusToScreen();
                 break;
             case REQUEST_CODE.BUTTLE:
                 this.screenDirector.battleStart();
-                this.characterManager.buttleStart(MAP_ELEM.FOREST);
-                this.#setStatusToScreen();
+                this.characterManager.buttleStart(this.screenDirector.getMapElem());
                 break;
             case REQUEST_CODE.ATTACK_PLAYER:
                 this.characterManager.attackPlayer();
-                this.#setStatusToScreen();
                 break;
             case REQUEST_CODE.ATTACK_ENEMY:
                 this.characterManager.attackEnemy();
-                this.#setStatusToScreen();
                 break;
             case REQUEST_CODE.ESCAPE:
                 this.screenDirector.setEscapeResult(this.characterManager.escape());
-                this.#setStatusToScreen();
                 break;
             case REQUEST_CODE.BOSS:
                 break;
@@ -77,14 +72,30 @@ class GameManager {
             case REQUEST_CODE.RETURN_MAP:
                 this.screenDirector.moveMapScreen();
                 break;
+            case REQUEST_CODE.ESCAPE_SUCCESS:
+                this.screenDirector.moveMapScreen();
+                break;
+            case REQUEST_CODE.ENEMY_DOWN:
+                this.characterManager.enemyDown();
+                break;
+            case REQUEST_CODE.GAME_OVER:
+                this.screenDirector.gameOver();
+                break;
             default:
                 console.log("undefined code [%i]", code);
+                return;
         }
+
+        // ステータスをセットする
+        this.#setStatusToScreen();
     }
 
     #setStatusToScreen(){
         this.screenDirector.setPlayerStatus(this.characterManager.getPlayerStatus());
-        this.screenDirector.setEnemyStatus(this.characterManager.getEnemyStatus);
+        // 敵キャラが生成されているかの確認
+        if(this.characterManager.canGetEnemy()){
+            this.screenDirector.setEnemy(this.characterManager.getImage(), this.characterManager.getImageCorrdinate(), this.characterManager.getEnemyStatus());
+        }
     }
 
     /**
