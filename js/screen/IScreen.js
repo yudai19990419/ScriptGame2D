@@ -1,8 +1,9 @@
 class IScreen {
 
     constructor(){
-        this.width = 120;
-        this.height = 128;
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this.message = "";
     }
     
     /**
@@ -88,6 +89,9 @@ class IScreen {
         }else{
             this.width  = this.height * 120 / 128;
         }
+
+        this.resetScreen();
+        this.createScreen();
     }
 
     /**
@@ -96,5 +100,26 @@ class IScreen {
     resetScreen(){
         // 画面全体をクリアする
         this.context.clearRect(0,0, this.canvas.width, this.canvas.height);
+    }
+
+    /**
+     * 初期化関数
+     * @param {String} message 表示させるメッセージ
+     */
+    drawMessage(message) {
+        console.log("drawMessage()");
+        this.context.lineWidth = 2;
+        this.context.strokeStyle = "#ffffff";
+        this.context.strokeRect( 10, this.height - 200, this.width - 20, 190);
+        this.context.fillStyle = "rgba( 0, 0, 0, 0.75 )";
+        this.context.fillRect( 10, this.height - 200, this.width - 20, 190);
+    
+        this.context.font = "12px monospace";
+        this.context.fillStyle = "#ffffff";
+        this.context.fillText( message, 6, 96 );
+    }
+
+    drawStatus(status) {
+
     }
 }

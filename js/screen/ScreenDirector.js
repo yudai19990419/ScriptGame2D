@@ -42,6 +42,13 @@ class ScreenDirector extends IScreenDirector{
     }
 
     // IScreenDirectorの実装
+    battleStart(){
+        // 戦闘画面を表示する
+        this.nowScreen = this.battleScreen;
+        this.nowScreen.createScreen();
+    }
+
+    // IScreenDirectorの実装
     moveMapScreen() {
         if(this.nowScreen == this.mapController){
             // すでにマップを表示している場合は何もしない
@@ -106,7 +113,7 @@ class ScreenDirector extends IScreenDirector{
     // IScreenDirectorの実装
     setEscapeResult(result){
         if(this.nowScreen != null){
-            this.nowScreen.setEscapeResult(status);
+            this.nowScreen.setEscapeResult(result);
         }
     }
 }

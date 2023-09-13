@@ -29,6 +29,13 @@ class IScreenDirector {
     }
 
     /**
+     * バトル開始関数
+     */
+    battleStart(){
+        throw "実装されていません";
+    }
+
+    /**
      * キーボード入力通知関数
      * @param {int} code EnumのDIRECTIONのcode
      */

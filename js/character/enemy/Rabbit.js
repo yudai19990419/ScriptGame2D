@@ -9,8 +9,8 @@ class Rabbit extends Enemy {
 
         this.escapeProbability = 30;
 
-        this.corrdinateX = image.width / 4 * 1;
-        this.corrdinateY = image.height;
+        this.corrdinateX = this.image.width / 4 * 1;
+        this.corrdinateY = this.image.height;
 
         this.init();
     }

@@ -48,7 +48,8 @@ class GameManager {
                 this.#setStatusToScreen();
                 break;
             case REQUEST_CODE.BUTTLE:
-                this.characterManager.buttleStart();
+                this.screenDirector.battleStart();
+                this.characterManager.buttleStart(MAP_ELEM.FOREST);
                 this.#setStatusToScreen();
                 break;
             case REQUEST_CODE.ATTACK_PLAYER:

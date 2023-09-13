@@ -1,9 +1,14 @@
 class CharacterStatus {
     constructor(){
-        this.hp = 10;
-        this.attack = 2;
-        this.deffence = 1;
-        this.level = 1;
+        this._character = ENEMY.THIEF;
+        this._hp = 10;
+        this._attack = 2;
+        this._deffence = 1;
+        this._level = 1;
+    }
+
+    get character(){
+        return this._character;
     }
 
     get hp(){
@@ -20,6 +25,10 @@ class CharacterStatus {
 
     get level(){
         return this._level;
+    }
+
+    set character(character){
+        this._character = character;
     }
 
     set hp(hp){

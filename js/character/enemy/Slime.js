@@ -9,8 +9,8 @@ class Slime extends Enemy {
 
         this.escapeProbability = 60;
 
-        this.corrdinateX = image.width / 4 * 0;
-        this.corrdinateY = image.height;
+        this.corrdinateX = this.image.width / 4 * 0;
+        this.corrdinateY = this.image.height;
 
         this.init();
     }

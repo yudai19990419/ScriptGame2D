@@ -86,6 +86,7 @@ class CharacterManager {
      * @param {MapElem} mapElem マップ要素(Enum)
      */
     #loadEnemy(mapElem){
+        console.log("loadEnemy()");
         var enemyList = [];
         var playerLv = this.player.getStatus();
         var maxLv = 0;
