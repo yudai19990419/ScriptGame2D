@@ -7,7 +7,12 @@
         this.imgMap.src = "img/map.png"; // マップ画像のパス
         this.imgPlayer = new Image();
         this.imgPlayer.src = "img/player.png";    //プレイヤー画像のパス
-        //this.tileSize = 32;
+        this.tileSize = 32;     // タイルサイズ（ピクセル）
+
+        this.pSyFront = 0;
+        this.pSyRight = 18; 
+        this.pSyLeft  = 9;
+        this.pSyBack  = 27;
 
         this.CorrdinateX = x;
         this.CorrdinateY = y;
@@ -54,11 +59,11 @@
     ];
 
     // 画像のパラメータ設定 (n * n 行列を仮定)
-    tileSize = 32; // タイルサイズ (ピクセル)
     cropSize = 8;    // トリミングするサイズ
     line = 4;       //行数
     column = 4;     //列数
 
+    //  マップの描画処理
     displayMap(context) { 
         console.log("MapCreater:displayMap()")
         for (let y = 0; y < this.mapData.length; y++) {
@@ -69,32 +74,43 @@
     };
 
     drawMap(x, y, mapData, context) {
-        console.log("Mapcreater: drawMap()");
         const sx = this.calcSx(mapData);
         const sy = this.calcSy(mapData);
         context.drawImage(this.imgMap, sx, sy, this.cropSize, this.cropSize, 
             x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
-        console.log("Mapcreater: drawImage()");
     }
 
-    calcSx(numInMapData) {
-        return (numInMapData % this.column) * this.cropSize;
+    calcSx(numMapData) {
+        return (numMapData % this.column) * this.cropSize;
     }
 
-    calcSy(numInMapData) {
-        const quotient = Math.floor((numInMapData / this.line));
+    calcSy(numMapData) {
+        const quotient = Math.floor((numMapData / this.line));
         return quotient * this.cropSize;
     }
 
     //プレイヤー画像設定
     pSx = 0;
-    pSy = 0;
     pCropWidth = 8;
     pCropHeight = 9;
 
-    displayPlayer(context, playerX, playerY) {
-        context.drawImage(this.imgPlayer, this.pSx, this.pSy, this.pCropWidth, this.pCropHeight,
+    // ゲーム画面にプレイヤー表示
+    displayPlayer(context, playerX, playerY, pSy) {
+        console.log("MapCreater: displayPlayer()");
+        context.drawImage(this.imgPlayer, this.pSx, pSy, this.pCropWidth, this.pCropHeight,
                  playerX, playerY, this.tileSize, this.tileSize);
+    }
+
+    // 移動前のプレイヤーを削除
+    delAfterImg(context, pX, pY) {
+        const x = pX / this.tileSize;
+        const y = pY / this.tileSize;
+        const mapData = this.mapData[y][x];
+        const sx = this.calcSx(mapData);
+        const sy = this.calcSy(mapData);
+        
+        context.drawImage(this.imgMap, sx, sy, this.cropSize, this.cropSize, 
+            pX, pY, this.tileSize, this.tileSize);
     }
  }
    

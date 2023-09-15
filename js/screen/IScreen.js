@@ -19,17 +19,17 @@ class IScreen {
         this.playerCanvas = document.getElementById("player");
         this.playerCanvas.width = this.width;
         this.playerCanvas.height = this.height;
-        this.playerContext = this.canvas.getContext("2d");
+        this.playerContext = this.playerCanvas.getContext("2d");
 
         this.messageCanvas = document.getElementById("message");
         this.messageCanvas.width = this.width;
         this.messageCanvas.height = this.height;
-        this.messageContext = this.canvas.getContext("2d");
+        this.messageContext = this.messageCanvas.getContext("2d");
 
         this.statusCanvas = document.getElementById("status");
         this.statusCanvas.width = this.width;
         this.statusCanvas.height = this.height;
-        this.statusContext = this.canvas.getContext("2d");
+        this.statusContext = this.statusCanvas.getContext("2d");
     }
 
     /**

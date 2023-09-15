@@ -6,7 +6,7 @@ class MapController extends IScreen{
     // 一旦 Virtualの実装は保留
     constructor() {
         super();
-        //TODO: マジックナンバー512(初期位置)
+        //FIXME: マジックナンバー512(初期位置)
         this.playerX = 512;
         this.playerY = 512;
         this.mapCreater = new MapCreater(this.playerX, this.playerY);
@@ -23,44 +23,53 @@ class MapController extends IScreen{
 
     // 引数の値だけプレイヤーを移動
     movePlayerX(num) {
-        // TODO: マジックナンバー32(タイルサイズ)
         this.playerX += num * this.mapCreater.tileSize;
     }
 
     movePlayerY(num) {
-        // TODO: マジックナンバー（タイルサイズ）
-        this.playerY += num * 32;
+        this.playerY += num * this.mapCreater.tileSize;
     }
 
     // コマンド入力によるプレイヤーの移動
     inputDirection(direction){
+        let pSy;
+        // OPTIMIZE: delAfterImg,displayPlayerの複数使用
         switch (direction) {
-            case DIRECTION.UP.code: 
-                this.movePlayerY(-1);
-                break;
-            case DIRECTION.DOWN.code: 
-                this.movePlayerY(1);
-                break;
-            case DIRECTION.RIGHT.code: 
-                this.movePlayerX(1);
-                break;
-            case DIRECTION.LEFT.code: 
-                this.movePlayerX(-1);
-                break;
-            default: 
-                console.log("undefined code [%i]", direction);
+        case DIRECTION.UP.code: 
+            this.mapCreater.delAfterImg(this.context, this.playerX, this.playerY);
+            this.movePlayerY(-1);
+            pSy = this.mapCreater.pSyBack;
+            this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY, pSy);
+            break;
+        case DIRECTION.DOWN.code: 
+            this.mapCreater.delAfterImg(this.context, this.playerX, this.playerY);
+            this.movePlayerY(1);
+            pSy = this.mapCreater.pSyFront;
+            this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY, pSy);
+            break;
+        case DIRECTION.RIGHT.code: 
+            this.mapCreater.delAfterImg(this.context, this.playerX, this.playerY);
+            this.movePlayerX(1);
+            pSy = this.mapCreater.pSyRight;
+            this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY, pSy);
+            break;
+        case DIRECTION.LEFT.code: 
+            this.mapCreater.delAfterImg(this.context, this.playerX, this.playerY);
+            this.movePlayerX(-1);
+            pSy = this.mapCreater.pSyLeft;
+            this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY, pSy);
+            break;
+        default: 
+            console.log("undefined code [%i]", direction);
         }
-        //FIXME: マップ再表示の影響による,プレイヤー移動時のマップの点滅
-        this.createScreen();
     }
 
     // ゲーム画面の表示（マップ、プレイヤー）
     createScreen(){
         console.log("MapController::createScreen()");
-        this.resetScreen(this.playerContext);
         this.resetScreen(this.context);
         this.mapCreater.displayMap(this.context);
-        this.mapCreater.displayPlayer(this.playerContext, this.playerX, this.playerY);
+        this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY, this.mapCreater.pSyFront);
     }
 
     isNotification(){
