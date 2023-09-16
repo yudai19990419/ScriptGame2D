@@ -12,7 +12,7 @@ class BattleScreen extends IScreen {
 
     // IScreenの実装
     createScreen(){
-        console.log("GameStartScreen::createScreen()");
+        console.log("BattleScreen::createScreen()");
         // 画面をクリアする
         this.resetScreen(this.context);
         this.context.fillStyle = "#000000"; // 背景色を黒にする

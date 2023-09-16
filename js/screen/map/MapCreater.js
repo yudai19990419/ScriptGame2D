@@ -1,26 +1,23 @@
  class MapCreater {
 
 
-    constructor (x, y) {
+    constructor () {
         // 画像の読み込み
         this.imgMap = new Image();
         this.imgMap.src = "img/map.png"; // マップ画像のパス
         this.imgPlayer = new Image();
         this.imgPlayer.src = "img/player.png";    //プレイヤー画像のパス
         this.tileSize = 32;     // タイルサイズ（ピクセル）
-
-        this.pSyFront = 0;
+        // プレイヤー画像の設定
+        this.pSyFront = 0;  
         this.pSyRight = 18; 
         this.pSyLeft  = 9;
         this.pSyBack  = 27;
-
-        this.CorrdinateX = x;
-        this.CorrdinateY = y;
+        this.obstacle = [0, 1, 2]; //障害物のマップ要素
     };
 
     getMap(x, y) {
-        console.log(gMap[x][y]);
-        return gMap[x][y];
+        return this.mapData[y][x];
     } 
 
     mapData = [
@@ -97,8 +94,8 @@
     // ゲーム画面にプレイヤー表示
     displayPlayer(context, playerX, playerY, pSy) {
         console.log("MapCreater: displayPlayer()");
-        context.drawImage(this.imgPlayer, this.pSx, pSy, this.pCropWidth, this.pCropHeight,
-                 playerX, playerY, this.tileSize, this.tileSize);
+        context.drawImage(this.imgPlayer, this.pSx,
+             pSy, this.pCropWidth, this.pCropHeight, playerX, playerY, this.tileSize, this.tileSize);
     }
 
     // 移動前のプレイヤーを削除

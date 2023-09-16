@@ -5,16 +5,20 @@
 window.onload = function(){
     
     // 30フレームで定義
-    const gFleam = 30;
+    const gFrame = 30;
     // ゲームマネージャークラス
     const manager = new GameManager();
     // 画面サイズを合わせる
     resize();
-    
-    // 定期的に関数を呼び出す(gFleam毎)
+
+    // 定期的に関数を呼び出す(gFrame毎)
     setInterval( function() {
         manager.job();
-    }, gFleam);
+    }, gFrame);
+
+    // setInterval(function () {
+    //     manager.counter++;
+    // }, gFrame);
 
     function inputIvent(event) {
         manager.input(event);
