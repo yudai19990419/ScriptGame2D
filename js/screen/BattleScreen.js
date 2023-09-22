@@ -18,11 +18,11 @@ class BattleScreen extends IScreen {
         this.context.fillStyle = "#000000"; // 背景色を黒にする
         this.context.fillRect(0, 0, this.width, this.height);
 
-        this.drawMessage(this.message);
-        this.#drawCommand();
-        if(this.playerStatus != null){
-            this.drawStatus(this.playerStatus);
-        }
+        // this.drawMessage(this.message);
+        // this.#drawCommand();
+        // if(this.playerStatus != null){
+        //     this.drawStatus(this.playerStatus);
+        // }
         this.#drawEnemyImage();
     }
 

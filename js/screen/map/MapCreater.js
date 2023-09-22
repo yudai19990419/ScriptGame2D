@@ -6,7 +6,7 @@
         this.imgMap.src = "img/map.png"; // マップ画像のパス
         this.imgPlayer = new Image();
         this.imgPlayer.src = "img/player.png";    //プレイヤー画像のパス
-        this.tileSize = 32;     // タイルサイズ（ピクセル）
+        this.TILESIZE = 32;     // タイルサイズ（ピクセル）
         // プレイヤー画像の設定
         this.pSyFront = 0;  
         this.pSyRight = 18; 
@@ -55,7 +55,7 @@
     ];
 
     // 画像のパラメータ設定 (n * n 行列を仮定)
-    cropSize = 8;    // トリミングするサイズ
+    CROPSIZE = 8;    // トリミングするサイズ
     line = 4;       //行数
     column = 4;     //列数
 
@@ -72,17 +72,17 @@
     drawMap(x, y, mapData, context) {
         const sx = this.calcSx(mapData);
         const sy = this.calcSy(mapData);
-        context.drawImage(this.imgMap, sx, sy, this.cropSize, this.cropSize, 
-            x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
+        context.drawImage(this.imgMap, sx, sy, this.CROPSIZE, this.CROPSIZE, 
+            x * this.TILESIZE, y * this.TILESIZE, this.TILESIZE, this.TILESIZE);
     }
 
     calcSx(numMapData) {
-        return (numMapData % this.column) * this.cropSize;
+        return (numMapData % this.column) * this.CROPSIZE;
     }
 
     calcSy(numMapData) {
         const quotient = Math.floor((numMapData / this.line));
-        return quotient * this.cropSize;
+        return quotient * this.CROPSIZE;
     }
 
     //プレイヤー画像設定
@@ -93,19 +93,7 @@
     // ゲーム画面にプレイヤー表示
     displayPlayer(context, playerX, playerY, pSy) {
         context.drawImage(this.imgPlayer, this.pSx,
-             pSy, this.pCropWidth, this.pCropHeight, 512, 512, this.tileSize, this.tileSize);
+             pSy, this.pCropWidth, this.pCropHeight, 512, 512, this.TILESIZE, this.TILESIZE);
     }
-
-    // 移動前のプレイヤーを削除
-    // delAfterImg(context, pX, pY) {
-    //     const x = pX / this.tileSize;
-    //     const y = pY / this.tileSize;
-    //     const mapData = this.mapData[y][x];
-    //     const sx = this.calcSx(mapData);
-    //     const sy = this.calcSy(mapData);
-        
-    //     context.drawImage(this.imgMap, sx, sy, this.cropSize, this.cropSize, 
-    //         pX, pY, this.tileSize, this.tileSize);
-    // }
  }
    

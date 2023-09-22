@@ -4,6 +4,8 @@ class MapController extends IScreen{
         super();
         this.mapCreater = new MapCreater();
         this.init();
+        this.requestCode = -1;
+        this.haveNotification = false;
         // 座標（初期位置）
         // OPTIMIZE: マジックナンバー
         this.valueX = 16;
@@ -14,10 +16,7 @@ class MapController extends IScreen{
         this.mapY = 0;
         // 一歩前のプレイヤーの向きを一時保存
         this.pOrientation = this.mapCreater.pSyFront; 
-        
-        this.count = 0;
-        this.displayScreen;
-        this.fps = 30;   // フレームレート
+        this.fps = 1;   // フレームレート
     } 
 
     // 引数の値だけプレイヤーを移動
@@ -78,30 +77,26 @@ class MapController extends IScreen{
             ", pX: " + this.playerX + ", pY: " + this.playerY + ")");
     }
 
+    displayScreen;
     // ゲーム画面の表示（マップ、プレイヤー）
     createScreen(){
         console.log("MapController::createScreen()");
         this.displayScreen = setInterval(() => {
-            //console.log(this.count++);
             this.resetScreen(this.context);
             this.mapCreater.displayMap(this.context, this.mapX, this.mapY);
-            this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY,
-                 this.pOrientation);
-            //　タイマー処理停止
-            // if (this.count > 500) {
-            //     clearInterval(this.displayScreen);
-            // }
+            this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY, this.pOrientation);
+            this.drawStatus(this.playerStatus);
         }, this.fps * 0.001);
     }
 
     isNotification(){
-        // 通知するものはないためfalse固定
-        return false;
+        let ret = this.haveNotification;
+        this.haveNotification = false;
+        return ret;
     }
 
     getNotification(){
-        // 通知するものはないため固定で-1
-        return -1;
+        return this.requestCode;
     }
 
     getMapElem(){
@@ -115,11 +110,13 @@ class MapController extends IScreen{
         
         if (rNum < prob[this.getMapElem()]) {
             console.log("敵が現れた！！ 乱数: " + rNum);
-            // TODO: 現在のスクリーンをバッファ(Canvas)に保存
-
             // 戦闘画面の呼び出し
-            // const battleScr = new BattleScreen();
-            // battleScr.createScreen();
+            clearInterval(this.displayScreen);
+            const battleScr = new BattleScreen();
+            battleScr.createScreen();
+
+            this.requestCode = REQUEST_CODE.BUTTLE;
+            this.haveNotification = true;
         } else {
             console.log("今日は良い天気ですね。 乱数: " + rNum);
         }
