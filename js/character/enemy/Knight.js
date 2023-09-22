@@ -13,6 +13,7 @@ class Knight extends Enemy {
         this.corrdinateX = this.image.width / 4 * 3;
         this.corrdinateY = this.image.height;
 
+        this.imageCorrdinate = [this.corrdinateX, this.corrdinateY];
         this.init();
     }
 }

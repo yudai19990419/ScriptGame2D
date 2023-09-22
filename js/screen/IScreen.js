@@ -44,7 +44,7 @@ class IScreen {
     updateScreen(){
         this.createScreen();
         if(this.playerStatus != null){
-            this.drawStatus(this.playerStatus);
+            // this.drawStatus(this.playerStatus);
         }
     }
 
@@ -84,9 +84,9 @@ class IScreen {
      * @returns {CharacterStatus} キャラクターのステータス
      */
     setPlayerStatus(status){
-        console.log(this.status);
+        console.log(status);
         this.playerStatus = status;
-        this.drawStatus(this.playerStatus);
+        // this.drawStatus(this.playerStatus);
     }
 
     /**

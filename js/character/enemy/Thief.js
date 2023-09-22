@@ -13,6 +13,7 @@ class Thief extends Enemy {
         this.corrdinateX = this.image.width / 4 * 2;
         this.corrdinateY = this.image.height;
 
+        this.imageCorrdinate = [this.corrdinateX, this.corrdinateY];
         this.init();
     }
 }

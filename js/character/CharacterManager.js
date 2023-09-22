@@ -108,7 +108,7 @@ class CharacterManager {
     #loadEnemy(mapElem){
         console.log("loadEnemy()");
         var enemyList = [];
-        var playerLv = this.player.getStatus();
+        var playerLv = this.player.getStatus().level;
         var maxLv = 0;
         var minLv = 0;
         switch(mapElem){
@@ -154,6 +154,7 @@ class CharacterManager {
      * @param {int} lv 敵キャラのレベル
      */
     #loadEnemyClass(enemyNum, lv){
+        console.log("loadEnemyClass : %i, %i", enemyNum, lv);
         switch(enemyNum){
             case ENEMY.SLIME:
                 this.enemy = new Slime(lv);

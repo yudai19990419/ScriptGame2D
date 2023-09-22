@@ -6,7 +6,8 @@ class BattleScreen extends IScreen {
         this.requestCode = -1;
         this.haveNotification = false;
         this.arrowIndex = 0;
-        this.image = null;
+        this.image = new Image();
+        this.image.src = "img/monster.png";
         this.corrdinate = null;
     }
 
@@ -51,10 +52,10 @@ class BattleScreen extends IScreen {
      * @returns {CharacterStatus} キャラクターのステータス
      */
     setEnemyStatus(status){
-        console.log(this.status);
+        console.log(status);
         this.enemyStatus = status;
         this.message = status.character.toString() + "が現れた。";
-        this.drawMessage(this.message);
+        // this.drawMessage(this.message);
     }
 
     /**
@@ -71,8 +72,8 @@ class BattleScreen extends IScreen {
         this.drawMessage("逃げられませんでした。");
     }
 
-    setEnemyImage(image, corrdinate){
-        this.image = image;
+    setEnemyImage(imagePath, corrdinate){
+        console.log("setEnemyImage");
         this.corrdinate = corrdinate;
         this.#drawEnemyImage();
     }
@@ -127,12 +128,11 @@ class BattleScreen extends IScreen {
     }
 
     #drawEnemyImage(){
-        console.log("drawEnemyImagea()");
+        console.log("drawEnemyImage()");
         if(this.image == null || this.corrdinate == null){
             return;
         }
 
-        this.resetScreen(this.playerContext)
-        this.playerContext.drawImage(this.image, this.corrdinate[0], 0, this.image.width/4, this.corrdinate[1], 300, 400, 32, 32);
+        this.context.drawImage(this.image, this.corrdinate[0], 0, this.image.width/4, this.corrdinate[1], 500, 300, 32, 32);
     }
 }

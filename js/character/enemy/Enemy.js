@@ -7,6 +7,8 @@ class Enemy extends Character {
         
         this.image = new Image();
         this.image.src = "img/monster.png"; // 敵キャラ画像のパス
+        this.imagePath = "img/monster.png"
+        this.imageCorrdinate = [0,0];
     }
 
     /**
@@ -35,7 +37,7 @@ class Enemy extends Character {
 
     // Characterのオーバーライド
     getImage(){
-        return this.image;
+        return this.imagePath;
     }
 
     // Characterのオーバーライド
