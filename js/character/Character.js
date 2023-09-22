@@ -106,6 +106,8 @@ class Character {
         this.status.deffence = Math.floor(this.status.deffence * (coefficient * 1.2) + 1); 
 
         // 経験値のMAX値はレベルが上がる毎に1.5倍
-        this.status.MaxExperiencePoint *= 1.5;
+        this.status.maxExperiencePoint *= 1.5;
+        console.log("character:%s", this.status.Character);
+        console.log(this.status);
     }
 }
