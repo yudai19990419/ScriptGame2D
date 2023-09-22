@@ -4,6 +4,8 @@ class MapController extends IScreen{
         super();
         this.mapCreater = new MapCreater();
         this.init();
+        this.requestCode = -1;
+        this.haveNotification = false;
         // 座標（初期位置）
         // OPTIMIZE: マジックナンバー
         this.mapX = 16;
@@ -96,13 +98,13 @@ class MapController extends IScreen{
     }
 
     isNotification(){
-        // 通知するものはないためfalse固定
-        return false;
+        let ret = this.haveNotification;
+        this.haveNotification = false;
+        return ret;
     }
 
     getNotification(){
-        // 通知するものはないため固定で-1
-        return -1;
+        return this.requestCode;
     }
 
     getMapElem(){
@@ -119,8 +121,8 @@ class MapController extends IScreen{
             // TODO: 現在のスクリーンをバッファ(Canvas)に保存
 
             // 戦闘画面の呼び出し
-            const battleScr = new BattleScreen();
-            battleScr.createScreen();
+            this.requestCode = REQUEST_CODE.BUTTLE;
+            this.haveNotification = true;
         } else {
             console.log("今日は良い天気ですね。 乱数: " + rNum);
         }
