@@ -1,6 +1,5 @@
  class MapCreater {
 
-
     constructor () {
         // 画像の読み込み
         this.imgMap = new Image();
@@ -61,11 +60,11 @@
     column = 4;     //列数
 
     //  マップの描画処理
-    displayMap(context) { 
-        console.log("MapCreater:displayMap()")
+    // OPTIMIZE: drawMap()の引数
+    displayMap(context, mapX, mapY) { 
         for (let y = 0; y < this.mapData.length; y++) {
             for (let x = 0; x < this.mapData[y].length; x++) {
-                this.drawMap(x, y, this.mapData[y][x], context);
+                this.drawMap(x - mapX, y - mapY, this.mapData[y][x], context);
             }    
         }
     };
@@ -93,21 +92,20 @@
 
     // ゲーム画面にプレイヤー表示
     displayPlayer(context, playerX, playerY, pSy) {
-        console.log("MapCreater: displayPlayer()");
         context.drawImage(this.imgPlayer, this.pSx,
-             pSy, this.pCropWidth, this.pCropHeight, playerX, playerY, this.tileSize, this.tileSize);
+             pSy, this.pCropWidth, this.pCropHeight, 512, 512, this.tileSize, this.tileSize);
     }
 
     // 移動前のプレイヤーを削除
-    delAfterImg(context, pX, pY) {
-        const x = pX / this.tileSize;
-        const y = pY / this.tileSize;
-        const mapData = this.mapData[y][x];
-        const sx = this.calcSx(mapData);
-        const sy = this.calcSy(mapData);
+    // delAfterImg(context, pX, pY) {
+    //     const x = pX / this.tileSize;
+    //     const y = pY / this.tileSize;
+    //     const mapData = this.mapData[y][x];
+    //     const sx = this.calcSx(mapData);
+    //     const sy = this.calcSy(mapData);
         
-        context.drawImage(this.imgMap, sx, sy, this.cropSize, this.cropSize, 
-            pX, pY, this.tileSize, this.tileSize);
-    }
+    //     context.drawImage(this.imgMap, sx, sy, this.cropSize, this.cropSize, 
+    //         pX, pY, this.tileSize, this.tileSize);
+    // }
  }
    

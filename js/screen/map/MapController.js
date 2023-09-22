@@ -1,50 +1,46 @@
 class MapController extends IScreen{
-    // 一旦 Virtualの実装は保留
+
     constructor() {
         super();
         this.mapCreater = new MapCreater();
         this.init();
         // 座標（初期位置）
         // OPTIMIZE: マジックナンバー
-        this.mapX = 16;
-        this.mapY = 16;
-        this.playerX = this.mapX * this.mapCreater.tileSize;
-        this.playerY = this.mapY * this.mapCreater.tileSize;
+        this.valueX = 16;
+        this.valueY = 16;
+        this.playerX = 512;
+        this.playerY = 512;
+        this.mapX = 0;
+        this.mapY = 0;
         // 一歩前のプレイヤーの向きを一時保存
-        this.pBuffer = this.mapCreater.pSyFront;    
+        this.pOrientation = this.mapCreater.pSyFront; 
+        
+        this.count = 0;
+        this.displayScreen;
+        this.fps = 30;   // フレームレート
     } 
-
-    getplayerX() {
-        return this.playerX;
-    }
-
-    getplayerY() {
-        return this.playerY;
-    }
 
     // 引数の値だけプレイヤーを移動
     moveX(num) {
+        this.valueX += num;
         this.mapX += num;
-        this.playerX = this.mapX * this.mapCreater.tileSize;
     }
 
     moveY(num) {
+        this.valueY += num;
         this.mapY += num;
-        this.playerY = this.mapY * this.mapCreater.tileSize;
     }
 
     // コマンド入力によるプレイヤーの移動
     inputDirection(direction){
-        this.mapCreater.delAfterImg(this.context, this.playerX, this.playerY);
-        let pSy;
-
         switch (direction) {
             case DIRECTION.UP.code: 
                 this.moveY(-1);
                 if (this.hasObstacle()) {
                     this.moveY(1);
                 } else {
-                    pSy = this.mapCreater.pSyBack;
+                    this.pOrientation = this.mapCreater.pSyBack;
+                    this.encount();
                 }
                 break;
             case DIRECTION.DOWN.code: 
@@ -52,7 +48,8 @@ class MapController extends IScreen{
                 if (this.hasObstacle()) {
                     this.moveY(-1);
                 } else {
-                    pSy = this.mapCreater.pSyFront;
+                    this.pOrientation = this.mapCreater.pSyFront;
+                    this.encount();
                 }
                 break;
             case DIRECTION.RIGHT.code: 
@@ -60,7 +57,8 @@ class MapController extends IScreen{
                 if (this.hasObstacle()) {
                     this.moveX(-1);
                 } else {
-                    pSy = this.mapCreater.pSyRight;
+                    this.pOrientation = this.mapCreater.pSyRight;
+                    this.encount();
                 }
                 break;
             case DIRECTION.LEFT.code: 
@@ -68,31 +66,32 @@ class MapController extends IScreen{
                 if (this.hasObstacle()) {
                     this.moveX(1);
                 } else {
-                    pSy = this.mapCreater.pSyLeft;
+                    this.pOrientation = this.mapCreater.pSyLeft;
+                    this.encount();
                 }
                 break;
             default: 
                 console.log("undefined code [%i]", direction);
                 break;
         }
-        console.log("Coordinate (X: " + this.mapX + ", Y: " + this.mapY + 
+        console.log("Coordinate (X: " + this.valueX + ", Y: " + this.valueY + 
             ", pX: " + this.playerX + ", pY: " + this.playerY + ")");
-
-        if (pSy != null) {
-            this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY, pSy);
-            this.pBuffer = pSy;
-            this.encount();
-        } else {
-            this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY, this.pBuffer);
-        }
     }
 
     // ゲーム画面の表示（マップ、プレイヤー）
     createScreen(){
         console.log("MapController::createScreen()");
-        this.resetScreen(this.context);
-        this.mapCreater.displayMap(this.context);
-        this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY, this.mapCreater.pSyFront);
+        this.displayScreen = setInterval(() => {
+            //console.log(this.count++);
+            this.resetScreen(this.context);
+            this.mapCreater.displayMap(this.context, this.mapX, this.mapY);
+            this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY,
+                 this.pOrientation);
+            //　タイマー処理停止
+            // if (this.count > 500) {
+            //     clearInterval(this.displayScreen);
+            // }
+        }, this.fps * 0.001);
     }
 
     isNotification(){
@@ -106,7 +105,7 @@ class MapController extends IScreen{
     }
 
     getMapElem(){
-        return this.mapCreater.getMap(this.mapX, this.mapY);
+        return this.mapCreater.getMap(this.valueX, this.valueY);
     }
 
     encount() {
@@ -119,8 +118,8 @@ class MapController extends IScreen{
             // TODO: 現在のスクリーンをバッファ(Canvas)に保存
 
             // 戦闘画面の呼び出し
-            const battleScr = new BattleScreen();
-            battleScr.createScreen();
+            // const battleScr = new BattleScreen();
+            // battleScr.createScreen();
         } else {
             console.log("今日は良い天気ですね。 乱数: " + rNum);
         }
