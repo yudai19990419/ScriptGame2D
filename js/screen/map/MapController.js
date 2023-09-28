@@ -10,13 +10,10 @@ class MapController extends IScreen{
         // OPTIMIZE: マジックナンバー
         this.valueX = 16;
         this.valueY = 16;
-        this.playerX = 512;
-        this.playerY = 512;
         this.mapX = 0;
         this.mapY = 0;
         // 一歩前のプレイヤーの向きを一時保存
         this.pOrientation = this.mapCreater.pSyFront; 
-        this.fps = 1;   // フレームレート
     } 
 
     // 引数の値だけプレイヤーを移動
@@ -73,20 +70,23 @@ class MapController extends IScreen{
                 console.log("undefined code [%i]", direction);
                 break;
         }
-        console.log("Coordinate (X: " + this.valueX + ", Y: " + this.valueY + 
-            ", pX: " + this.playerX + ", pY: " + this.playerY + ")");
+        console.log("Coordinate (X: " + this.valueX + ", Y: " + this.valueY + ")");
+        this.createScreen();
     }
 
-    displayScreen;
     // ゲーム画面の表示（マップ、プレイヤー）
+    // FIXME: 処理が重いため要改善
+    displayScreen;
     createScreen(){
         console.log("MapController::createScreen()");
-        this.displayScreen = setInterval(() => {
+        // this.displayScreen = setInterval(() => {
             this.resetScreen(this.context);
+            this.mapCreater.drawBackGround(this.context);
             this.mapCreater.displayMap(this.context, this.mapX, this.mapY);
-            this.mapCreater.displayPlayer(this.context, this.playerX, this.playerY, this.pOrientation);
+            // FIXME: 城とプレイヤーの初期位置を同期させる
+            this.mapCreater.displayPlayer(this.context, 512, 512, this.pOrientation);
             this.drawStatus(this.playerStatus);
-        }, this.fps * 0.001);
+        // }, /* mfps */ 0.001);
     }
 
     isNotification(){
@@ -103,6 +103,7 @@ class MapController extends IScreen{
         return this.mapCreater.getMap(this.valueX, this.valueY);
     }
 
+    // 敵との遭遇確率と戦闘画面への遷移
     encount() {
         let rNum = Math.random(); 
         const prob = [0, 0, 0, 0.2, 0, 0, 0.4, 0.6, 0, 0, 0, 0, 0, 0, 0, 0];   //敵の出現確率
@@ -111,7 +112,7 @@ class MapController extends IScreen{
         if (rNum < prob[this.getMapElem()]) {
             console.log("敵が現れた！！ 乱数: " + rNum);
             // 戦闘画面の呼び出し
-            clearInterval(this.displayScreen);
+            // clearInterval(this.displayScreen);
             const battleScr = new BattleScreen();
             battleScr.createScreen();
 

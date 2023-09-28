@@ -16,10 +16,6 @@ window.onload = function(){
         manager.job();
     }, gFrame);
 
-    // setInterval(function () {
-    //     manager.counter++;
-    // }, gFrame);
-
     function inputIvent(event) {
         manager.input(event);
     }

@@ -2,7 +2,6 @@ class GameManager {
     constructor(){
         this.screenDirector = new ScreenDirector();
         this.characterManager = new CharacterManager();
-        //this.counter = 0;   //内部カウンタ
         this.init();
     }
 

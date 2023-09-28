@@ -16,16 +16,10 @@ class IScreen {
         this.canvas.height = this.height;
         this.context = this.canvas.getContext("2d");
 
-
-        this.bufferCanvas = document.getElementById("buffer");
-        this.bufferCanvas.width = this.width;
-        this.bufferCanvas.height = this.height;
-        this.bufferContext = this.bufferCanvas.getContext("2d");
-
-        this.playerCanvas = document.getElementById("player");
-        this.playerCanvas.width = this.width;
-        this.playerCanvas.height = this.height;
-        this.playerContext = this.playerCanvas.getContext("2d");
+        this.canvas2 = document.getElementById("background");
+        this.canvas2.width = this.width;
+        this.canvas2.height = this.height;
+        this.context2 = this.canvas2.getContext("2d");
 
         this.messageCanvas = document.getElementById("message");
         this.messageCanvas.width = this.width;
@@ -125,8 +119,7 @@ class IScreen {
         // }
 
         this.reSizeScreen(this.canvas, this.context, width, height);
-        this.reSizeScreen(this.bufferCanvas, this.bufferContext, width, height);
-        this.reSizeScreen(this.playerCanvas, this.playerContext, width, height);
+        this.reSizeScreen(this.canvas2, this.context2, width, height);
         this.reSizeScreen(this.messageCanvas, this.messageContext, width, height);
 
         // this.resetScreen();

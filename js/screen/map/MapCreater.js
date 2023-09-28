@@ -62,12 +62,23 @@
     //  マップの描画処理
     // OPTIMIZE: drawMap()の引数
     displayMap(context, mapX, mapY) { 
+        // this.drawBackGround(context);
         for (let y = 0; y < this.mapData.length; y++) {
             for (let x = 0; x < this.mapData[y].length; x++) {
                 this.drawMap(x - mapX, y - mapY, this.mapData[y][x], context);
             }    
         }
     };
+    drawBackGround(context) {
+        console.log("MapCreater#drawBackGround()");
+    // HACK: 背景の表示
+    for (let i = 0; i < window.innerWidth; i++) {
+        for (let k = 0; k < window.innerHeight; k++) {
+            context.drawImage(this.imgMap, 0, 0, this.CROPSIZE, this.CROPSIZE, 
+                i * this.TILESIZE, k * this.TILESIZE, this.TILESIZE, this.TILESIZE);        
+        }
+    }
+    }
 
     drawMap(x, y, mapData, context) {
         const sx = this.calcSx(mapData);
@@ -93,7 +104,7 @@
     // ゲーム画面にプレイヤー表示
     displayPlayer(context, playerX, playerY, pSy) {
         context.drawImage(this.imgPlayer, this.pSx,
-             pSy, this.pCropWidth, this.pCropHeight, 512, 512, this.TILESIZE, this.TILESIZE);
+             pSy, this.pCropWidth, this.pCropHeight, playerX, playerY, this.TILESIZE, this.TILESIZE);
     }
  }
    
