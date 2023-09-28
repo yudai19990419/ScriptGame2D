@@ -1,3 +1,4 @@
+/* canvasのレイヤー処理*/
 .canvas-wrapper{
     position: relative;
 }
@@ -13,3 +14,14 @@
     top: 0;
     left: 0;
 }
+/*
+    --- Format ---
+    クラス名{
+        position: absolute;
+        ↓表示させたい座標に応じpxを指定
+        top:    ANY;
+        left:   ANY;
+        right:  ANY;
+        bottom: ANY;
+    }
+*/

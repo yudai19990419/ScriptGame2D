@@ -71,17 +71,19 @@ class MapController extends IScreen{
                 break;
         }
         console.log("Coordinate (X: " + this.valueX + ", Y: " + this.valueY + ")");
-        this.createScreen();
+        this.resetScreen(this.context);
+        this.mapCreater.displayMap(this.context, this.mapX, this.mapY);
+        this.mapCreater.displayPlayer(this.context, 512, 512, this.pOrientation);
     }
 
     // ゲーム画面の表示（マップ、プレイヤー）
     // FIXME: 処理が重いため要改善
-    displayScreen;
+    // displayScreen;
     createScreen(){
         console.log("MapController::createScreen()");
+        this.mapCreater.drawBackGround(this.context2);
         // this.displayScreen = setInterval(() => {
             this.resetScreen(this.context);
-            this.mapCreater.drawBackGround(this.context);
             this.mapCreater.displayMap(this.context, this.mapX, this.mapY);
             // FIXME: 城とプレイヤーの初期位置を同期させる
             this.mapCreater.displayPlayer(this.context, 512, 512, this.pOrientation);
@@ -112,7 +114,7 @@ class MapController extends IScreen{
         if (rNum < prob[this.getMapElem()]) {
             console.log("敵が現れた！！ 乱数: " + rNum);
             // 戦闘画面の呼び出し
-            // clearInterval(this.displayScreen);
+            clearInterval(this.displayScreen);
             const battleScr = new BattleScreen();
             battleScr.createScreen();
 

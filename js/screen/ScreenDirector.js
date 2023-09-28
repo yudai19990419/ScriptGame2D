@@ -17,7 +17,8 @@ class ScreenDirector extends IScreenDirector{
     init(){
         // ゲーム開始画面を表示する
         this.nowScreen = this.gameStartScreen;
-        this.nowScreen.updateScreen();
+        // this.nowScreen.updateScreen();
+        this.gameStartScreen.createScreen();
     }
 
     // IScreenDirectorの実装
@@ -97,7 +98,7 @@ class ScreenDirector extends IScreenDirector{
     }
 
     // IScreenDirectorの実装
-     setPlayerStatus(status){
+    setPlayerStatus(status){
         if(this.nowScreen != null){
             this.nowScreen.setPlayerStatus(status);
         }
