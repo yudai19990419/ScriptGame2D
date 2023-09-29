@@ -62,29 +62,33 @@
     //  マップの描画処理
     // OPTIMIZE: drawMap()の引数
     displayMap(context, mapX, mapY) { 
-        // this.drawBackGround(context);
         for (let y = 0; y < this.mapData.length; y++) {
             for (let x = 0; x < this.mapData[y].length; x++) {
                 this.drawMap(x - mapX, y - mapY, this.mapData[y][x], context);
             }    
         }
     };
+
+    // ゲーム画面にプレイヤー表示
+    pSx = 0;
+    displayPlayer(context, playerX, playerY, pSy) {
+        context.drawImage(this.imgPlayer, this.pSx,
+             pSy, /*cropWidth*/ 8, /*cropHeight*/ 9, playerX, playerY, this.TILESIZE, this.TILESIZE);
+    }
+
     drawBackGround(context) {
         console.log("MapCreater#drawBackGround()");
-    // HACK: 背景の表示
-    for (let i = 0; i < window.innerWidth; i++) {
-        for (let k = 0; k < window.innerHeight; k++) {
-            context.drawImage(this.imgMap, 0, 0, this.CROPSIZE, this.CROPSIZE, 
-                i * this.TILESIZE, k * this.TILESIZE, this.TILESIZE, this.TILESIZE);        
+        for (let x = 0; x < window.innerWidth; x++) {
+            for (let y = 0; y < window.innerHeight; y++) {
+                context.drawImage(this.imgMap, 0, 0, this.CROPSIZE, this.CROPSIZE, 
+                    x * this.TILESIZE, y * this.TILESIZE, this.TILESIZE, this.TILESIZE);        
+            }
         }
-    }
     }
 
     drawMap(x, y, mapData, context) {
-        const sx = this.calcSx(mapData);
-        const sy = this.calcSy(mapData);
-        context.drawImage(this.imgMap, sx, sy, this.CROPSIZE, this.CROPSIZE, 
-            x * this.TILESIZE, y * this.TILESIZE, this.TILESIZE, this.TILESIZE);
+        context.drawImage(this.imgMap, this.calcSx(mapData), this.calcSy(mapData), this.CROPSIZE, 
+            this.CROPSIZE, x * this.TILESIZE, y * this.TILESIZE, this.TILESIZE, this.TILESIZE);
     }
 
     calcSx(numMapData) {
@@ -95,16 +99,4 @@
         const quotient = Math.floor((numMapData / this.line));
         return quotient * this.CROPSIZE;
     }
-
-    //プレイヤー画像設定
-    pSx = 0;
-    pCropWidth = 8;
-    pCropHeight = 9;
-
-    // ゲーム画面にプレイヤー表示
-    displayPlayer(context, playerX, playerY, pSy) {
-        context.drawImage(this.imgPlayer, this.pSx,
-             pSy, this.pCropWidth, this.pCropHeight, playerX, playerY, this.TILESIZE, this.TILESIZE);
-    }
  }
-   

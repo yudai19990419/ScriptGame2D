@@ -1,4 +1,4 @@
-/* canvasのレイヤー処理*/
+/* canvasのレイヤー処理 */
 .canvas-wrapper{
     position: relative;
 }
@@ -15,7 +15,7 @@
     left: 0;
 }
 /*
-    --- Format ---
+    ==== FORMAT ====
     クラス名{
         position: absolute;
         ↓表示させたい座標に応じpxを指定
