@@ -1,10 +1,10 @@
 class CharacterStatus {
     constructor(){
         this._character = ENEMY.THIEF;
-        this._hp = 10;
-        this._attack = 2;
-        this._deffence = 1;
-        this._level = 1;
+        this.hp = 10;
+        this.attack = 2;
+        this.deffence = 1;
+        this.level = 1;
         this.experiencePoint = 0;
         this.maxExperiencePoint = 30;
     }

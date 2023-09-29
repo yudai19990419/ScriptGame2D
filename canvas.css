@@ -3,6 +3,17 @@
     position: relative;
 }
 
+/*
+    ==== FORMAT ====
+    クラス名{
+        position: absolute;
+        ↓表示させたい座標に応じpxを指定
+        top:    ANY;
+        left:   ANY;
+        right:  ANY;
+        bottom: ANY;
+    }
+*/
 .main-canvas {
     position: absolute;
     top : 0;
@@ -26,14 +37,9 @@
     top : 0;
     left: 0;
 }
-/*
-    ==== FORMAT ====
-    クラス名{
-        position: absolute;
-        ↓表示させたい座標に応じpxを指定
-        top:    ANY;
-        left:   ANY;
-        right:  ANY;
-        bottom: ANY;
-    }
-*/
+
+.message-canvas {
+    position: absolute;
+    top : 0;
+    left: 0;
+}

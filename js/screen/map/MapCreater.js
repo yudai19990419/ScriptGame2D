@@ -1,4 +1,17 @@
  class MapCreater {
+    
+    // プレイヤー画像の設定
+    pSyFront = 0;  
+    pSyRight = 18; 
+    pSyLeft  = 9;
+    pSyBack  = 27;
+    obstacle = [0, 1, 2]; // 障害物のマップ要素
+    TILESIZE = 32;        // タイルサイズ（ピクセル）
+
+    // 画像のパラメータ設定 (n * n 行列を仮定)
+    CROPSIZE = 8;    // トリミングするサイズ
+    LINE     = 4;    //行数
+    COLUMN   = 4;    //列数
 
     constructor () {
         // 画像の読み込み
@@ -6,13 +19,6 @@
         this.imgMap.src = "img/map.png"; // マップ画像のパス
         this.imgPlayer = new Image();
         this.imgPlayer.src = "img/player.png";    //プレイヤー画像のパス
-        this.TILESIZE = 32;     // タイルサイズ（ピクセル）
-        // プレイヤー画像の設定
-        this.pSyFront = 0;  
-        this.pSyRight = 18; 
-        this.pSyLeft  = 9;
-        this.pSyBack  = 27;
-        this.obstacle = [0, 1, 2]; //障害物のマップ要素
     }
 
     getMap(x, y) {
@@ -54,22 +60,16 @@
         [7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7],
     ];
 
-    // 画像のパラメータ設定 (n * n 行列を仮定)
-    CROPSIZE = 8;    // トリミングするサイズ
-    line = 4;       //行数
-    column = 4;     //列数
-
     //  マップの描画処理
-    // OPTIMIZE: drawMap()の引数
-    displayMap(context, mapX, mapY) { 
+    displayMap(context, playerX, playerY) { 
         for (let y = 0; y < this.mapData.length; y++) {
             for (let x = 0; x < this.mapData[y].length; x++) {
-                this.drawMap(x - mapX, y - mapY, this.mapData[y][x], context);
+                this.drawMap(x - playerX, y - playerY, this.mapData[y][x], context);
             }    
         }
     };
 
-    // ゲーム画面にプレイヤー表示
+    // プレイヤーの描画処理
     displayPlayer(context, playerX, playerY, pSx, pSy) {
         context.drawImage(this.imgPlayer, pSx,
              pSy, /*cropWidth*/ 8, /*cropHeight*/ 9, playerX, playerY, this.TILESIZE, this.TILESIZE);
@@ -91,11 +91,11 @@
     }
 
     calcSx(numMapData) {
-        return (numMapData % this.column) * this.CROPSIZE;
+        return (numMapData % this.COLUMN) * this.CROPSIZE;
     }
 
     calcSy(numMapData) {
-        const quotient = Math.floor((numMapData / this.line));
+        const quotient = Math.floor((numMapData / this.LINE));
         return quotient * this.CROPSIZE;
     }
  }

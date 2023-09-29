@@ -182,9 +182,9 @@ class IScreen {
         this.resetScreen(context)
         context.lineWidth = 2;
         context.strokeStyle = "#ffffff";
-        context.strokeRect( 10, 10, 180, 110);
+        context.strokeRect(/*x=*/10, /*y=*/10, /*width=*/180, /*height=*/100);
         context.fillStyle = "rgba( 0, 0, 0, 0.75 )";
-        context.fillRect( 10, 10, 180, 110);
+        context.fillRect  (/*x=*/10, /*y=*/10, /*width=*/180, /*height=*/100);
     
         context.font = "30px monospace";
         context.fillStyle = "#ffffff";
