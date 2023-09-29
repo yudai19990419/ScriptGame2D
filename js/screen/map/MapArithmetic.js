@@ -1,3 +1,4 @@
+// FIXME: Uncaught ReferenceError
 class MapArithmetic {
     
     constructor(){

@@ -12,15 +12,21 @@ class IScreen {
      */
     init(){
         this.canvas  = document.getElementById("main");
-        this.canvas.width = this.width;
-        this.canvas.height = this.height;
-        this.context  = this.canvas.getContext("2d");
-        
         this.canvas2 = document.getElementById("background");
-        this.canvas2.width = this.width;
-        this.canvas2.height = this.height;
-        this.context2 = this.canvas2.getContext("2d");
+        this.pCanvas = document.getElementById("player");
 
+        this.canvas.width  = this.width;
+        this.canvas2.width = this.width;
+        this.pCanvas.width = this.width;
+
+        this.canvas.height  = this.height;
+        this.canvas2.height = this.height;
+        this.pCanvas.height = this.height;
+
+        this.context  = this.canvas.getContext("2d");
+        this.context2 = this.canvas2.getContext("2d");
+        this.pContext = this.pCanvas.getContext("2d");
+        
         this.messageCanvas = document.getElementById("message");
         this.messageCanvas.width = this.width;
         this.messageCanvas.height = this.height;
@@ -120,6 +126,7 @@ class IScreen {
 
         this.reSizeScreen(this.canvas, this.context, width, height);
         this.reSizeScreen(this.canvas2, this.context2, width, height);
+        this.reSizeScreen(this.pCanvas, this.pContext, width, height);
         this.reSizeScreen(this.messageCanvas, this.messageContext, width, height);
 
         // this.resetScreen();
@@ -168,22 +175,27 @@ class IScreen {
         this.messageContext.fillText( message, 20, this.height - 160 );
     }
 
-    drawStatus(status) {
+
+    // TODO: クラス分割
+    drawStatus(context) {
         console.log("drawStatus()");
-        this.resetScreen(this.statusContext)
-        this.statusContext.lineWidth = 2;
-        this.statusContext.strokeStyle = "#ffffff";
-        this.statusContext.strokeRect( 10, 10, 180, 110);
-        this.statusContext.fillStyle = "rgba( 0, 0, 0, 0.75 )";
-        this.statusContext.fillRect( 10, 10, 180, 110);
+        this.resetScreen(context)
+        context.lineWidth = 2;
+        context.strokeStyle = "#ffffff";
+        context.strokeRect( 10, 10, 180, 110);
+        context.fillStyle = "rgba( 0, 0, 0, 0.75 )";
+        context.fillRect( 10, 10, 180, 110);
     
-        this.statusContext.font = "30px monospace";
-        this.statusContext.fillStyle = "#ffffff";
-        var hp = "HP : " + status.hp;
-        this.statusContext.fillText( hp, 20, 40 );
-        var lv = "Lv : " + status.level;
-        this.statusContext.fillText( lv, 20, 70 );
-        var ex = "Ex : " + status.experiencePoint + " / " + status.maxExperiencePoint;
-        this.statusContext.fillText( ex, 20, 100 );
+        context.font = "30px monospace";
+        context.fillStyle = "#ffffff";
+        
+        // FIXME: どこのステータスを参照するか不明のため、仮のインスタンスを生成した
+        const playerStatus = new Player();
+        let hp = "HP : " + playerStatus.hp;
+        context.fillText( hp, 20, 40 );
+        let lv = "Lv : " + playerStatus.level;
+        context.fillText( lv, 20, 70 );
+        let ex = "Ex : " + playerStatus.experiencePoint + " / " + playerStatus.maxExperiencePoint;
+        context.fillText( ex, 20, 100 );
     }
 }

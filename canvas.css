@@ -5,13 +5,25 @@
 
 .main-canvas {
     position: absolute;
-    top: 0;
+    top : 0;
     left: 0;
 }
 
 .background-canvas {
     position: absolute;
-    top: 0;
+    top : 0;
+    left: 0;
+}
+
+.player-canvas {
+    position: absolute;
+    top : 0;
+    left: 0;
+}
+
+.status-canvas {
+    position: absolute;
+    top : 0;
     left: 0;
 }
 /*

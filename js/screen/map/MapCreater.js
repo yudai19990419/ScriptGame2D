@@ -13,7 +13,7 @@
         this.pSyLeft  = 9;
         this.pSyBack  = 27;
         this.obstacle = [0, 1, 2]; //障害物のマップ要素
-    };
+    }
 
     getMap(x, y) {
         return this.mapData[y][x];
@@ -70,9 +70,8 @@
     };
 
     // ゲーム画面にプレイヤー表示
-    pSx = 0;
-    displayPlayer(context, playerX, playerY, pSy) {
-        context.drawImage(this.imgPlayer, this.pSx,
+    displayPlayer(context, playerX, playerY, pSx, pSy) {
+        context.drawImage(this.imgPlayer, pSx,
              pSy, /*cropWidth*/ 8, /*cropHeight*/ 9, playerX, playerY, this.TILESIZE, this.TILESIZE);
     }
 

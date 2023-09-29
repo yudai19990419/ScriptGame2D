@@ -6,6 +6,8 @@ class MapController extends IScreen{
     valueY = 16;
     mapX = 0;
     mapY = 0;
+
+    pOrientation;   // プレイヤーの向き
     
     constructor() {
         super();
@@ -13,7 +15,6 @@ class MapController extends IScreen{
         this.init();
         this.requestCode = -1;
         this.haveNotification = false;
-        // 一歩前のプレイヤーの向きを一時保存
         this.pOrientation = this.mapCreater.pSyFront; 
     } 
 
@@ -70,23 +71,27 @@ class MapController extends IScreen{
         console.log("Coordinate (X: " + this.valueX + ", Y: " + this.valueY + ")");
         this.resetScreen(this.context);
         this.mapCreater.displayMap(this.context, this.mapX, this.mapY);
-        this.mapCreater.displayPlayer(this.context, 512, 512, this.pOrientation);
         // FIXME: 移動なしの場合戦闘発生しない。
         this.battle();
     }
 
     // ゲーム画面の表示（マップ、プレイヤー）
-    // displayScreen;
+    displayScreen;
+    counter = 0;
     createScreen(){
         console.log("MapController::createScreen()");
         this.mapCreater.drawBackGround(this.context2);
-        // this.displayScreen = setInterval(() => {
-            this.resetScreen(this.context);
-            this.mapCreater.displayMap(this.context, this.mapX, this.mapY);
+        this.resetScreen(this.context);
+        this.mapCreater.displayMap(this.context, this.mapX, this.mapY);
+        this.drawStatus(this.statusContext);
+        // FIXME: レスポンスの遅さ要改善
+        this.displayScreen = setInterval(() => {
             // TODO: 城とプレイヤーの初期位置を同期させる
-            this.mapCreater.displayPlayer(this.context, 512, 512, this.pOrientation);
-            // this.drawStatus(this.playerStatus);
-        // }, /* mfps */ 0.001);
+            this.resetScreen(this.pContext);
+            this.mapCreater.displayPlayer(this.pContext, 512, 512, (this.counter % 2) * 8, this.pOrientation);
+            this.counter = this.counter + 1;
+        }, /* mfps^{-1} */ 500);
+        
     }
 
     isNotification(){
@@ -106,7 +111,7 @@ class MapController extends IScreen{
     // 敵との遭遇時、戦闘画面への遷移を行う
     battle() {
         if (this.encount()) {
-            // clearInterval(this.displayScreen);
+            clearInterval(this.displayScreen);
             this.resetScreen(this.context);
             const battleScr = new BattleScreen();
             battleScr.createScreen();
