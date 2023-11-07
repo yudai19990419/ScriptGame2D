@@ -47,27 +47,24 @@ interface IScreen {
 class MapController {
     -playerX: int
     -playerY: int
-    -VirtualPointX: int
-    -VirtualPointY: int
+    -valueX: int 
+    -valueY: int 
     --
-    +getplayerX(): int
-    +getplayerY(): int
-    +moveX(int): int
-    +moveY(int): int  
+    +battle()
+    +createScreen()
+    +getMapElem()
+    +getNotification()
+    +hasEncount()
+    +hasObstacle()
+    +isNotification()
+    +inputDirection()
+    +move() 
 }
 
 class MapCreater {
-    -mapMinX: int
-    -mapMaxX: int
-    -mapMinY: int
-    -mapMaxY: int  
     -map: List<MapElem>
     --
     +getMap():List<MapElem>
-    +getMaxX():int
-    +getMinX():int
-    +getMaxY():int
-    +getMinY():int
 }
 
 enum MapElem {

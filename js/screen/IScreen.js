@@ -11,31 +11,29 @@ class IScreen {
      * 初期化関数
      */
     init(){
-        this.canvas  = document.getElementById("main");
-        this.canvas2 = document.getElementById("background");
-        this.pCanvas = document.getElementById("player");
+        this.canvas           = document.getElementById("main");
+        this.backgroundCanvas = document.getElementById("background");
+        this.playerCanvas     = document.getElementById("player");
+        this.messageCanvas    = document.getElementById("message");
+        this.statusCanvas     = document.getElementById("status");
 
-        this.canvas.width  = this.width;
-        this.canvas2.width = this.width;
-        this.pCanvas.width = this.width;
+        this.canvas.width           = this.width;
+        this.backgroundCanvas.width = this.width;
+        this.playerCanvas.width     = this.width;
+        this.messageCanvas.width    = this.width;
+        this.statusCanvas.width     = this.width;
 
-        this.canvas.height  = this.height;
-        this.canvas2.height = this.height;
-        this.pCanvas.height = this.height;
+        this.canvas.height           = this.height;
+        this.backgroundCanvas.height = this.height;
+        this.playerCanvas.height     = this.height;
+        this.messageCanvas.height    = this.height;
+        this.statusCanvas.height     = this.height;
 
-        this.context  = this.canvas.getContext("2d");
-        this.context2 = this.canvas2.getContext("2d");
-        this.pContext = this.pCanvas.getContext("2d");
-        
-        this.messageCanvas = document.getElementById("message");
-        this.messageCanvas.width = this.width;
-        this.messageCanvas.height = this.height;
+        this.context        = this.canvas.getContext("2d");
+        this.context2       = this.backgroundCanvas.getContext("2d");
+        this.pContext       = this.playerCanvas.getContext("2d");
         this.messageContext = this.messageCanvas.getContext("2d");
-
-        this.statusCanvas = document.getElementById("status");
-        this.statusCanvas.width = this.width;
-        this.statusCanvas.height = this.height;
-        this.statusContext = this.statusCanvas.getContext("2d");
+        this.statusContext  = this.statusCanvas.getContext("2d");
     }
 
     /**
@@ -124,10 +122,11 @@ class IScreen {
         //     this.width  = this.height * 120 / 128;
         // }
 
-        this.reSizeScreen(this.canvas, this.context, width, height);
-        this.reSizeScreen(this.canvas2, this.context2, width, height);
-        this.reSizeScreen(this.pCanvas, this.pContext, width, height);
-        this.reSizeScreen(this.messageCanvas, this.messageContext, width, height);
+        this.reSizeScreen(this.canvas          , this.context       , width, height);
+        this.reSizeScreen(this.backgroundCanvas, this.context2      , width, height);
+        this.reSizeScreen(this.playerCanvas    , this.pContext      , width, height);
+        this.reSizeScreen(this.messageCanvas   , this.messageContext, width, height);
+        this.reSizeScreen(this.statusCanvas    , this.statusContext , width, height);
 
         // this.resetScreen();
         this.createScreen();
@@ -154,7 +153,15 @@ class IScreen {
     resetScreen(context){
         console.log("IScreen::resetScreen()");
         // 画面全体をクリアする
-        context.clearRect(0,0, this.canvas.width, this.canvas.height);
+        context.clearRect(0,0, this.width, this.height);
+    }
+
+    resetScreenAll() {
+        this.resetScreen(this.context);
+        this.resetScreen(this.context2);
+        this.resetScreen(this.pContext);
+        this.resetScreen(this.messageContext);
+        this.resetScreen(this.statusContext);
     }
 
     /**

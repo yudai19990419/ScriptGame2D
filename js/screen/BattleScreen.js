@@ -1,5 +1,7 @@
 class BattleScreen extends IScreen {
 
+    counter = 0;
+
     constructor(){
         super();
         this.init();
@@ -14,12 +16,10 @@ class BattleScreen extends IScreen {
     // IScreenの実装
     createScreen(){
         console.log("BattleScreen::createScreen()");
-        // 画面をクリアする
-        this.resetScreen(this.context);
         this.context.fillStyle = "#000000"; // 背景色を黒にする
         this.context.fillRect(0, 0, this.width, this.height);
 
-        // this.drawMessage(this.message);
+        this.drawMessage("敵が現れた");
         // this.#drawCommand();
         // if(this.playerStatus != null){
         //     this.drawStatus(this.playerStatus);
@@ -30,8 +30,19 @@ class BattleScreen extends IScreen {
     // IScreenの実装
     inputDirection(direction){
         if(direction == DIRECTION.ENTER.code){
-            this.haveNotification = true;
-            this.requestCode = REQUEST_CODE.GAME_START;
+            switch (this.counter) {
+                case 0: 
+                    this.resetScreen(this.messageContext);
+                    this.#drawCommand();
+                    this.counter++;
+                    break;
+                default:
+                    // this.resetScreenAll();
+                    this.haveNotification = true;
+                    this.requestCode = REQUEST_CODE.GAME_START;
+                    this.counter = 0;
+                    break;
+            }
         }
     }
 
@@ -100,7 +111,7 @@ class BattleScreen extends IScreen {
     #drawCommand(){
         console.log("drawCommand()");
 
-        this.resetScreen(this.statusContext)
+        // this.resetScreen(this.statusContext);
         this.statusContext.lineWidth = 2;
         this.statusContext.strokeStyle = "#ffffff";
         this.statusContext.strokeRect( 10, this.height - 200, 180, 190);
@@ -110,21 +121,21 @@ class BattleScreen extends IScreen {
         this.statusContext.font = "30px monospace";
         this.statusContext.fillStyle = "#ffffff";
 
-        var commands = ["戦う", "逃げる"];
-        var height = this.height - 160;
+        let commands = ["戦う", "逃げる"];
+        let height = this.height - 160;
         commands.forEach((command, index) => {
             if(index == this.arrowIndex){
                 command = "=> " + command;
             }
             else{
-                command = "      " + command;
+                command = "   " + command;
             }
 
             this.statusContext.fillText( command, 20, height );
             height += 50;
         })
 
-        this.drawStatus();
+        // this.drawStatus();
     }
 
     #drawEnemyImage(){

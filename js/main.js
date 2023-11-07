@@ -3,7 +3,6 @@
 
 // 画面が起動したら
 window.onload = function(){
-    
     // 30フレームで定義
     const gFrame = 30;
     // ゲームマネージャークラス
