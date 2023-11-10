@@ -1,11 +1,21 @@
 class Character {
 
+    status = new CharacterStatus();
+    // TODO: getter,setter作成
+    maxHp;
+    hp;
+    level;
+    attack;
+    deffence;
+    // speed;
+    // luck;
+    
     constructor(){
-        this.status = new CharacterStatus();
-        this.maxHp = 0;
         this.image = null;
-        this.corrdinateX = 0;
-        this.corrdinateY = 0;
+    }
+
+    get hp() {
+        return this.hp;
     }
     
     /**
@@ -18,19 +28,18 @@ class Character {
 
     /**
      * 攻撃関数
-     * @param {int} attackDamage 与えるダメージ
+     * @param {Character}   target  攻撃対象
      * @returns {int} 残りHP
      */
-    attack(attackDamage){
-        console.log("attack() : attackDamage[%i]", attackDamage);
+    attackTarget(target){
+        console.log(`attack() :`);
         // HPに攻撃ダメージを与える
-        this.status.hp = this.status.hp - this.calcDamage(attackDamage);
+        target.hp -= this.calcDamage(target);
         // HPがマイナス値になった場合
-        if(this.status.hp < 0){
-            this.status.hp = 0;
+        if(target.hp < 0){
+            target.hp = 0;
         }
-
-        return this.status.hp;
+        // return this.hp;
     }
 
     /**
@@ -53,9 +62,9 @@ class Character {
      * 敵キャラの画像位置取得関数
      * @returns {List<int>} 敵キャラの画像位置
      */
-    getImageCorrdinate(){
-        return [this.corrdinateX, this.corrdinateY];
-    }
+    // getImageCorrdinate(){
+    //     return [this.corrdinateX, this.corrdinateY];
+    // }
 
     /**
      * 敵キャラのステータス取得関数
@@ -70,20 +79,22 @@ class Character {
      * HPを10回復する
      */
     heal(){
-        if(this.status.hp + 10 <= this.maxHp){
-            this.status.hp += 10;
-        }
-        else{
-            this.status.hp = this.maxHp;
-        }
+        // if(this.hp + 10 <= this.maxHp){
+        //     this.hp += 10;
+        // }
+        // else{
+        //     this.hp = this.maxHp;
+        // }
+        this.hp = this.maxHp;
+        console.log(`HP: ${this.hp}`);
     }
 
     /**
      * 与えるダメージ計算関数
      * @returns {int} 実際に受けるダメージ
      */
-    calcDamage(attackDamage){
-        var damage = Math.floor(attackDamage - this.status.deffence * 0.6 + 1);
+    calcDamage(target){
+        let damage = Math.floor(this.attack - target.deffence * 0.6 + 1);
         if(damage < 1){
             damage = 1
         }
@@ -94,20 +105,18 @@ class Character {
      * レベルに対応してステータスを更新する関数
      */
     updateStatus(){
-        if(this.status.level == 1){
+        if(this.level == 1){
             return;
         }
-
         // ステータスの更新はレベル-1分
-        var coefficient = this.status.level - 1;
-        this.status.hp = Math.floor(this.status.hp * (coefficient* 1.4) + 1); 
-        this.maxHp = this.status.hp;
-        this.status.attack = Math.floor(this.status.attack * (coefficient * 1.3) + 1); 
-        this.status.deffence = Math.floor(this.status.deffence * (coefficient * 1.2) + 1); 
-
+        let coefficient = this.level - 1;
+        this.maxHp    = Math.floor(this.maxHp       * (coefficient * 1.4) + 1); 
+        this.hp       = this.maxHp;
+        this.attack   = Math.floor(this.attack   * (coefficient * 1.3) + 1); 
+        this.deffence = Math.floor(this.deffence * (coefficient * 1.2) + 1); 
         // 経験値のMAX値はレベルが上がる毎に1.5倍
-        this.status.maxExperiencePoint *= 1.5;
-        console.log("character:%s", this.status.Character);
-        console.log(this.status);
+        this.maxExperiencePoint *= 1.5;
+        // console.log("character:%s", this.status.Character);
+        // console.log(this.status);
     }
 }

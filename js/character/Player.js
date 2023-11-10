@@ -1,22 +1,28 @@
+/**
+ * Singleton
+ * インスタンス生成はgetInstance()を用いる
+ */
+
 class Player extends Character {
 
-    hp;
-    level;
-    attack;
-    deffence;
+    static #player = new Player();
+
     experiencePoint;
     maxExperiencePoint;
-
+    // TODO: 一度しかインスタンス生成できないよう修正
     constructor() {
         super();
-        this.hp                 = this.status.hp;
-        // FIXME: 既に上位クラスで初期値が設定されている
-        // FIXME: 上位クラスの設定値と代入値が異なる
-        this.attack             = this.status.attack = 3;
-        this.deffence           = this.status.deffence = 2;
-        this.level              = this.status.level;
-        this.experiencePoint    = this.status.experiencePoint;
-        this.maxExperiencePoint = this.status.maxExperiencePoint = 10;
+        this.maxHp              =         10;
+        this.hp                 = this.maxHp;
+        this.level              =          1;
+        this.attack             =          3;
+        this.deffence           =          2;
+        this.experiencePoint    =          0;
+        this.maxExperiencePoint =         10;
+    }
+
+    static getInstance() {
+        return this.#player;
     }
 
     /**
@@ -24,13 +30,28 @@ class Player extends Character {
      * @param {int} experiencePoint 経験値
      */
     addExperiencePoint(experiencePoint) {
-        this.status.experiencePoint += experiencePoint;
-
+        this.experiencePoint += experiencePoint;
         // 経験値が経験値Max値よりも大きい時
-        while(this.status.experiencePoint >= this.status.maxExperiencePoint){
-            this.status.level += 1;
-            this.status.experiencePoint -= this.status.maxExperiencePoint;
-            this.updateStatus();
+        while(this.experiencePoint >= this.maxExperiencePoint){
+            this.levelUp();
         }
+    }
+
+    levelUp() {
+        console.log(`LEVEL UP!!`)
+        this.level++;
+        this.experiencePoint -= this.maxExperiencePoint;
+        this.updateStatus();
+        this.confirmCurrentStatus();
+    }
+
+    confirmCurrentStatus() {
+        console.log(`MAX_HP  : ${this.maxHp}`);
+        console.log(`HP      : ${this.hp}`);
+        console.log(`LEVEL   : ${this.level}`);
+        console.log(`ATTACK  : ${this.attack}`);
+        console.log(`DEFFENCE: ${this.deffence}`);
+        console.log(`EXP     : ${this.experiencePoint}`);
+        console.log(`MAX_EXP : ${this.maxExperiencePoint}`)
     }
 }

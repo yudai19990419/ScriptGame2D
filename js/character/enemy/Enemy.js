@@ -1,5 +1,9 @@
 class Enemy extends Character {
 
+    name;
+    // TODO: 敵キャラ個別に設定
+    dropExperiencePoint = 5;
+
     constructor() {
         super();
         // 逃げれる確率

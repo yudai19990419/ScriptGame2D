@@ -182,8 +182,6 @@ class IScreen {
         this.messageContext.fillText( message, 20, this.height - 160 );
     }
 
-
-    // TODO: クラス分割
     drawStatus(context) {
         console.log("drawStatus()");
         this.resetScreen(context)
@@ -196,13 +194,12 @@ class IScreen {
         context.font = "30px monospace";
         context.fillStyle = "#ffffff";
         
-        // FIXME: どこのステータスを参照するか不明のため、仮のインスタンスを生成した
-        const playerStatus = new Player();
-        let hp = "HP : " + playerStatus.hp;
+        const player = Player.getInstance();
+        let hp = `HP : ${player.hp}`;
         context.fillText( hp, 20, 40 );
-        let lv = "Lv : " + playerStatus.level;
+        let lv = `Lv : ${player.level}`;
         context.fillText( lv, 20, 70 );
-        let ex = "Ex : " + playerStatus.experiencePoint + " / " + playerStatus.maxExperiencePoint;
+        let ex = `Ex : ${player.experiencePoint} / ${player.maxExperiencePoint}`;
         context.fillText( ex, 20, 100 );
     }
 }

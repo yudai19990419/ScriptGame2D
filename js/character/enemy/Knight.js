@@ -1,19 +1,17 @@
 class Knight extends Enemy {
 
+    sx = 2;
     constructor(level) {
         super();
-        this.status.hp = 15;
-        this.status.attack = 7;
-        this.status.deffence = 4;
-        this.status.level = level;
         this.character = ENEMY.KNIGHT;
+        this.name     = "ナイト";
+        this.maxHP    = 15;
+        this.hp       = this.maxHP;
+        this.attack   = 7;
+        this.deffence = 4;
+        this.level    = level;
 
         this.escapeProbability = 20;
-
-        this.corrdinateX = this.image.width / 4 * 3;
-        this.corrdinateY = this.image.height;
-
-        this.imageCorrdinate = [this.corrdinateX, this.corrdinateY];
         this.init();
     }
 }

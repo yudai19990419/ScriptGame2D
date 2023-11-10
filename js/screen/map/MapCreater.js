@@ -7,15 +7,11 @@
     #pSyRight = this.#PLAYER_HEIGHT * 2; 
     #pSyBack  = this.#PLAYER_HEIGHT * 3;
     obstacle = [0, 1, 2]; // 障害物のマップ要素
-    #TILESIZE = 32;        // タイルサイズ（ピクセル）
+    #TILESIZE = 64;        // タイルサイズ（ピクセル）
     // 画像のパラメータ設定 (n * n 行列を仮定)
     #CROPSIZE = 8;    // トリミングするサイズ
     #LINE     = 4;    //行数
     #COLUMN   = 4;    //列数
-
-    imgMap;
-    imgPlayer;
-
 
     constructor () {
         // 画像の読み込み
@@ -98,7 +94,7 @@
     // プレイヤーの描画処理
     drawPlayer(context, pSx, pSy) {
         context.drawImage(this.imgPlayer, pSx, pSy, this.#PLAYER_WIDTH, this.#PLAYER_HEIGHT,
-              this.#TILESIZE * this.#TILESIZE / 2, this.#TILESIZE * this.#TILESIZE / 2, this.#TILESIZE, this.#TILESIZE);
+              Math.floor(window.innerWidth / 2), Math.floor(window.innerHeight / 2), this.#TILESIZE, this.#TILESIZE);
     }
 
     drawBackGround(context) {
@@ -112,11 +108,14 @@
     }
 
     drawTile(x, y, mapData, context) {
-        context.drawImage(this.imgMap, this.calcSx(mapData), this.calcSy(mapData), this.#CROPSIZE, 
-            this.#CROPSIZE, x * this.#TILESIZE, y * this.#TILESIZE, this.#TILESIZE, this.#TILESIZE);
+        // FIXME: playerの初期位置と同期させる
+        context.drawImage(this.imgMap, this.calcSx(mapData), this.calcSy(mapData), this.#CROPSIZE, this.#CROPSIZE,
+             x * this.#TILESIZE + (Math.floor(window.innerWidth  / 2) - (this.mapData.length / 2) * this.#TILESIZE),
+             y * this.#TILESIZE + (Math.floor(window.innerHeight / 2) - (this.mapData.length / 2) * this.#TILESIZE),
+              this.#TILESIZE, this.#TILESIZE);
     }
 
     getMap(x, y) {
         return this.mapData[y][x];
-    } 
+    }
  }

@@ -1,19 +1,18 @@
 class Rabbit extends Enemy {
 
+    sx = 1;
+
     constructor(level) {
         super();
         this.status.character = ENEMY.RABBIT;
-        this.status.hp = 8;
-        this.status.attack = 2;
-        this.status.deffence = 2;
-        this.status.level = level;
+        this.name     = "ラビット";
+        this.maxHp    = 8;
+        this.hp       = this.maxHp;
+        this.attack   = 2;
+        this.deffence = 2;
+        this.level    = level;
 
         this.escapeProbability = 30;
-
-        this.corrdinateX = this.image.width / 4 * 1;
-        this.corrdinateY = this.image.height;
-
-        this.imageCorrdinate = [this.corrdinateX, this.corrdinateY];
         this.init();
     }
 

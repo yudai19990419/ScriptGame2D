@@ -2,7 +2,7 @@ class ScreenDirector extends IScreenDirector{
 
     constructor(){
         super();
-        this.mapController = new MapController();
+        this.mapOperator = new MapOperator();
         this.battleScreen = new BattleScreen();
         this.gameOverScreen = new GameOverScreen();
         this.gameStartScreen = new GameStartScreen();
@@ -37,9 +37,11 @@ class ScreenDirector extends IScreenDirector{
 
     // IScreenDirectorの実装
     gameOver(){
+        // テスト用
+        this.init();
         // ゲームオーバー画面を表示する
-        this.nowScreen = this.gameOver;
-        this.nowScreen.updateScreen();
+        // this.nowScreen = this.gameOver;
+        // this.nowScreen.updateScreen();
     }
 
     // IScreenDirectorの実装
@@ -51,12 +53,12 @@ class ScreenDirector extends IScreenDirector{
 
     // IScreenDirectorの実装
     moveMapScreen() {
-        if(this.nowScreen == this.mapController){
+        if(this.nowScreen == this.mapOperator){
             // すでにマップを表示している場合は何もしない
             return;
         }
         // マップ画面を表示する
-        this.nowScreen = this.mapController;
+        this.nowScreen = this.mapOperator;
         this.nowScreen.updateScreen();
     }
 
@@ -122,6 +124,6 @@ class ScreenDirector extends IScreenDirector{
 
     // IScreenDirectorの実装
     getMapElem(){
-        return this.mapController.getMapElem();
+        return this.mapOperator.getMapElem();
     }
 }

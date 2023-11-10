@@ -44,7 +44,7 @@ interface IScreen {
     createScreen():void
 }
 
-class MapController {
+class MapOperator {
     -playerX: int
     -playerY: int
     -valueX: int 
@@ -175,11 +175,11 @@ ScreenDirector -- IScreen
 IScreen <|.. BattleScreen
 IScreen <|.. GameOverScreen
 IScreen <|.. GameStartScreen
-IScreen <|.. MapController
+IScreen <|.. MapOperator
 ScreenDirector -- RequestCode
-MapController -- MapCreater
-MapController -- IBuild
-MapElem -- MapController
+MapOperator -- MapCreater
+MapOperator -- IBuild
+MapElem -- MapOperator
 
 CharacterManager -- Character
 Character <|-- Enemy

@@ -1,4 +1,4 @@
-class MapController extends IScreen{
+class MapOperator extends IScreen {
     
     mapCreater = new MapCreater();
     #counter = 0;        // 内部カウンタ
@@ -10,7 +10,6 @@ class MapController extends IScreen{
     #playerOrientation = this.mapCreater.pSyFront;   // プレイヤーの向き
     #frameForward;   // プレイヤーのコマ送り（ON/OFF）
     #hasKey = false;
-    #islockedDoor = true;
     
     constructor() {
         super();
@@ -21,7 +20,7 @@ class MapController extends IScreen{
 
     // 敵との遭遇時、戦闘画面へ遷移
     battle() {
-        if (this.hasEncount()) {
+        if (MapEvent.hasEncount(this.getMapElem())) {
             clearInterval(this.#frameForward);
             this.resetScreen(this.context);
             this.resetScreen(this.pContext);
@@ -31,9 +30,11 @@ class MapController extends IScreen{
         }
     }
 
+    // @Override
     // ゲーム画面の表示（マップ、プレイヤー）
     createScreen(){
-        console.log("MapController::createScreen()");
+        this.resetScreenAll();
+        console.log("MapOperator::createScreen()");
         // プレイヤー画像のコマ送り
         this.#frameForward = setInterval(() => {
             this.resetScreen(this.pContext);
@@ -41,7 +42,6 @@ class MapController extends IScreen{
             this.#counter += 1;
         }, /* mfps^{-1} */ 500);
         this.mapCreater.drawBackGround(this.context2);
-        this.resetScreen(this.context);
         this.mapCreater.drawMap(this.context, this.playerX, this.playerY);
         this.drawStatus(this.statusContext);
     }
@@ -70,34 +70,13 @@ class MapController extends IScreen{
         return this.#playerY;
     }
 
-    hasEncount() {
-        const prob = [0, 0, 0, 0.2, 0, 0, 0.4, 0.6, 0, 0, 0, 0, 0, 0, 0, 0];   //敵の出現確率
-        console.log("エンカウント率: " + prob[this.getMapElem()]);
-        
-        if (Math.random() < prob[this.getMapElem()]) {
-            console.log("\"敵が現れた！！\"");
-            return true;
-        } else {
-            console.log("\"今日は良い天気ですね。\"");
-            return false;
-        }
-    }
-
-    hasObstacle() {
-        for (let obs of this.mapCreater.obstacle) {
-            if (this.getMapElem() == obs) {
-                return true;
-            }
-        } 
-        return false;
-    }
-
     isNotification(){
         let ret = this.haveNotification;
         this.haveNotification = false;
         return ret;
     }
 
+    // @Override
     inputDirection(direction){
         switch (direction) {
             case DIRECTION.UP.code:
@@ -117,8 +96,7 @@ class MapController extends IScreen{
                 this.move(-1, 0);
                 break;
             default: 
-                console.log("undefined code [%i]", direction);
-                this.resetScreen(this.messageContext);
+                console.log(`undefined code [${direction}]`);
                 break;
         }
     }
@@ -129,7 +107,7 @@ class MapController extends IScreen{
         this.#valueY    += y;
         this.#playerX   += x;
         this.#playerY   += y;
-        if (this.hasObstacle()) {
+        if (MapEvent.hasObstacle(this.getMapElem(), this.mapCreater.obstacle)) {
             this.#valueX  -= x;
             this.#valueY  -= y;
             this.#playerX -= x;
@@ -145,10 +123,18 @@ class MapController extends IScreen{
     // HACK
     occurEvent() {
         switch (this.getMapElem()) {
-            case  9: this.drawMessage("魔王を倒して！");            break;
+            case  9: 
+                Player.getInstance().heal();
+                this.drawStatus(this.statusContext);
+                this.drawMessage("魔王を倒して！");
+                break;
             case 10: 
-            case 11: this.drawMessage("東の果てにも村があります。"); break;
-            case 12: this.drawMessage("鍵は洞窟にあります。");      break;
+            case 11: 
+                this.drawMessage("東の果てにも村があります。");
+                break;
+            case 12:
+                this.drawMessage("鍵は洞窟にあります。");
+                break;
             case 13: 
                 if (!this.#hasKey) {
                     this.drawMessage("鍵を手に入れた。"); 
@@ -158,14 +144,17 @@ class MapController extends IScreen{
             case 14: 
                 if (this.#hasKey) {
                     this.drawMessage("扉が開いた。");
-                    this.#islockedDoor = false;
                 } else {
                     this.move(0, -1);
                     this.drawMessage("扉を開くには鍵が必要です。");
                 }
                 break;
-            case 15: this.drawMessage("魔王が現れた");  break;
-            default: this.resetScreen(this.messageContext);        break;
+            case 15: 
+                this.drawMessage("魔王が現れた"); 
+                break;
+            default: 
+                this.resetScreen(this.messageContext);
+                break;
         }
     }
 
@@ -174,6 +163,6 @@ class MapController extends IScreen{
         this.mapCreater.drawMap(this.context, this.playerX, this.playerY);
         this.resetScreen(this.pContext);
         this.mapCreater.drawPlayer(this.pContext, (this.#counter % 2) * 8, this.#playerOrientation);
-        // this.battle();
+        this.battle();
     }
 }

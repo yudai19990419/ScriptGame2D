@@ -1,7 +1,11 @@
 class CharacterManager {
 
+    static enemySpecies;
+    static enemyLv;
+    static enemyNum;
+
     constructor() {
-        this.player = new Player();
+        this.player = Player.getInstance();
         this.enemy = null;
     }
 
@@ -17,14 +21,14 @@ class CharacterManager {
      * @param {MapElem} mapElem マップの要素(Enum)
      */
     buttleStart(mapElem) {
-        this.#loadEnemy(mapElem);
+        this.loadEnemy(mapElem);
     }
 
     /**
      * 敵キャラへの攻撃関数
      */
-     attackEnemy(){
-        this.enemy.attackDamage(this.player.getStatus().attack);
+    attackEnemy(){
+        this.enemy.attackDamage(this.player.attack);
     }
 
     /**
@@ -105,10 +109,10 @@ class CharacterManager {
      * 敵キャラの生成関数
      * @param {MapElem} mapElem マップ要素(Enum)
      */
-    #loadEnemy(mapElem){
+    static loadEnemy(mapElem){
         console.log("loadEnemy()");
         var enemyList = [];
-        var playerLv = this.player.getStatus().level;
+        var playerLv = Player.getInstance().level;
         var maxLv = 0;
         var minLv = 0;
         switch(mapElem){
@@ -143,9 +147,9 @@ class CharacterManager {
             minLv = 1;
         }
 
-        var randomEnemy = Math.floor(Math.random() * enemyList.length);
-        var randomLv = Math.floor(Math.random() * (maxLv - minLv) + minLv);
-        this.#loadEnemyClass(enemyList[randomEnemy], randomLv);
+        this.enemyNum   = Math.floor(Math.random() * enemyList.length);
+        this.enemyLv    = Math.floor(Math.random() * (maxLv - minLv) + minLv);
+        this.enemySpecies = enemyList[this.enemyNum];
     }
 
     /**
@@ -153,23 +157,20 @@ class CharacterManager {
      * @param {ENEMY} enemyNum 敵キャラの番号(Enum)
      * @param {int} lv 敵キャラのレベル
      */
-    #loadEnemyClass(enemyNum, lv){
-        console.log("loadEnemyClass : %i, %i", enemyNum, lv);
-        switch(enemyNum){
+    static createEnemy(){
+        this.loadEnemy(3);
+        console.log(`CharacterManager.createEnemy : enemy_${this.enemyNum}, level_${this.enemyLv}`);
+        switch(this.enemySpecies){
             case ENEMY.SLIME:
-                this.enemy = new Slime(lv);
-                break;
+                return new Slime(this.enemyLv);
             case ENEMY.RABBIT:
-                this.enemy = new Rabbit(lv);
-                break;
+                return new Rabbit(this.enemyLv);
             case ENEMY.THIEF:
-                this.enemy = new Thief(lv);
-                break;
+                return new Thief(this.enemyLv);
             case ENEMY.KNIGHT:
-                this.enemy = new Knight(lv);
-                break;
+                return new Knight(this.enemyLv);
             default:
-                console.log("undefined enemy [%i]", enemyNum);
+                console.log("undefined enemy [%i]", this.enemyNum);
         }
     }
 }
