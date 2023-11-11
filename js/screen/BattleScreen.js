@@ -2,8 +2,9 @@ class BattleScreen extends IScreen {
 
     arrowIndex = 0;
     player   = Player.getInstance();
-    opponent = CharacterManager.createEnemy();
+    opponent;
     // playerTurn;
+    mapOperator = new MapOperator();
 
     constructor(){
         super();
@@ -12,7 +13,7 @@ class BattleScreen extends IScreen {
         this.haveNotification = false;
         this.image = new Image();
         this.image.src = "img/monster.png";
-        this.corrdinate = null;
+        // this.corrdinate = null;
         this.openedCommandScreen = false;
     }
 
@@ -26,7 +27,7 @@ class BattleScreen extends IScreen {
         this.context.fillStyle = "#000000"; // 背景色を黒にする
         this.context.fillRect(0, 0, this.width, this.height);
 
-        this.opponent = CharacterManager.createEnemy();
+        this.opponent = CharacterManager.createEnemy(this.mapOperator.getMapElem());
         this.viewEnemyStatus();
         this.drawMessage(`${this.opponent.name}が現れた`);
         this.#drawEnemyImage();
@@ -178,10 +179,10 @@ class BattleScreen extends IScreen {
         let height = this.height - 160;
         commands.forEach((command, index) => {
             if(index == this.arrowIndex){
-                command = "=> " + command;
+                command = "▶ " + command;
             }
             else{
-                command = "   " + command;
+                command = "  " + command;
             }
 
             this.messageContext.fillText( command, 20, height );

@@ -142,7 +142,6 @@ class CharacterManager {
         if(maxLv > 99){
             maxLv = 99;
         }
-
         if(minLv < 1){
             minLv = 1;
         }
@@ -157,8 +156,8 @@ class CharacterManager {
      * @param {ENEMY} enemyNum 敵キャラの番号(Enum)
      * @param {int} lv 敵キャラのレベル
      */
-    static createEnemy(){
-        this.loadEnemy(3);
+    static createEnemy(mapElem){
+        this.loadEnemy(mapElem);
         console.log(`CharacterManager.createEnemy : enemy_${this.enemyNum}, level_${this.enemyLv}`);
         switch(this.enemySpecies){
             case ENEMY.SLIME:

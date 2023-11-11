@@ -17,10 +17,12 @@
         // 画像の読み込み
         this.imgMap    = new Image();
         this.imgPlayer = new Image();
+        // this.imgDevil  = new Image();
         this.imgMap.src    = "img/map.png"; // マップ画像のパス
         this.imgPlayer.src = "img/player.png";    //プレイヤー画像のパス
+        // this.imgDevil.src  = "img/Devil.png";
     }
-
+    
     get pSyFront() {
         return this.#pSyFront;
     }
@@ -96,6 +98,12 @@
         context.drawImage(this.imgPlayer, pSx, pSy, this.#PLAYER_WIDTH, this.#PLAYER_HEIGHT,
               Math.floor(window.innerWidth / 2), Math.floor(window.innerHeight / 2), this.#TILESIZE, this.#TILESIZE);
     }
+
+    // drawDevil(context) {
+    //     console.log("drawDevil")
+    //     context.drawImage(this.imgDevil, 0, 0, 500, 500, 
+    //         Math.floor(window.innerWidth / 2), Math.floor(window.innerHeight / 2), this.#TILESIZE, this.#TILESIZE);
+    // }
 
     drawBackGround(context) {
         console.log("MapCreater#drawBackGround()");

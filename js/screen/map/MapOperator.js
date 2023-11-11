@@ -150,7 +150,10 @@ class MapOperator extends IScreen {
                 }
                 break;
             case 15: 
-                this.drawMessage("魔王が現れた"); 
+                this.drawMessage("魔王が現れた");
+                // clearInterval(this.#frameForward);
+                // this.resetScreen(this.pContext);
+                this.mapCreater.drawDevil(this.pContext); 
                 break;
             default: 
                 this.resetScreen(this.messageContext);

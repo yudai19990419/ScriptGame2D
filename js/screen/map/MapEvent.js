@@ -8,7 +8,6 @@ class MapEvent {
             console.log("\"敵が現れた！！\"");
             return true;
         } else {
-            console.log("\"今日は良い天気ですね。\"");
             return false;
         }
     }

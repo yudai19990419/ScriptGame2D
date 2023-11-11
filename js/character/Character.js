@@ -86,7 +86,7 @@ class Character {
         //     this.hp = this.maxHp;
         // }
         this.hp = this.maxHp;
-        console.log(`HP: ${this.hp}`);
+        console.log(`[HEAL] HP: ${this.hp}`);
     }
 
     /**
@@ -110,7 +110,7 @@ class Character {
         }
         // ステータスの更新はレベル-1分
         let coefficient = this.level - 1;
-        this.maxHp    = Math.floor(this.maxHp       * (coefficient * 1.4) + 1); 
+        this.maxHp    = Math.floor(this.maxHp    * (coefficient * 1.4) + 1); 
         this.hp       = this.maxHp;
         this.attack   = Math.floor(this.attack   * (coefficient * 1.3) + 1); 
         this.deffence = Math.floor(this.deffence * (coefficient * 1.2) + 1); 
