@@ -29,6 +29,7 @@ class BattleScreen extends IScreen {
 
         this.opponent = CharacterManager.createEnemy(this.mapOperator.getMapElem());
         this.viewEnemyStatus();
+        this.drawStatus(this.statusContext);
         this.drawMessage(`${this.opponent.name}が現れた`);
         this.#drawEnemyImage();
     }

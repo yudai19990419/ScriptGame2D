@@ -17,10 +17,8 @@
         // 画像の読み込み
         this.imgMap    = new Image();
         this.imgPlayer = new Image();
-        // this.imgDevil  = new Image();
         this.imgMap.src    = "img/map.png"; // マップ画像のパス
         this.imgPlayer.src = "img/player.png";    //プレイヤー画像のパス
-        // this.imgDevil.src  = "img/Devil.png";
     }
     
     get pSyFront() {
@@ -85,10 +83,10 @@
     }
 
     //  マップの描画処理
-    drawMap(context, playerX, playerY) { 
+    drawMap(context, posX, posY) {
         for (let y = 0; y < this.mapData.length; y++) {
             for (let x = 0; x < this.mapData[y].length; x++) {
-                this.drawTile(x - playerX, y - playerY, this.mapData[y][x], context);
+                this.drawTile(x * this.#TILESIZE - posX, y * this.#TILESIZE - posY, this.mapData[y][x], context);
             }    
         }
     };
@@ -98,12 +96,6 @@
         context.drawImage(this.imgPlayer, pSx, pSy, this.#PLAYER_WIDTH, this.#PLAYER_HEIGHT,
               Math.floor(window.innerWidth / 2), Math.floor(window.innerHeight / 2), this.#TILESIZE, this.#TILESIZE);
     }
-
-    // drawDevil(context) {
-    //     console.log("drawDevil")
-    //     context.drawImage(this.imgDevil, 0, 0, 500, 500, 
-    //         Math.floor(window.innerWidth / 2), Math.floor(window.innerHeight / 2), this.#TILESIZE, this.#TILESIZE);
-    // }
 
     drawBackGround(context) {
         console.log("MapCreater#drawBackGround()");
@@ -116,10 +108,9 @@
     }
 
     drawTile(x, y, mapData, context) {
-        // FIXME: playerの初期位置と同期させる
         context.drawImage(this.imgMap, this.calcSx(mapData), this.calcSy(mapData), this.#CROPSIZE, this.#CROPSIZE,
-             x * this.#TILESIZE + (Math.floor(window.innerWidth  / 2) - (this.mapData.length / 2) * this.#TILESIZE),
-             y * this.#TILESIZE + (Math.floor(window.innerHeight / 2) - (this.mapData.length / 2) * this.#TILESIZE),
+             x + (Math.floor(window.innerWidth  / 2) - (this.mapData.length / 2) * this.#TILESIZE),
+             y + (Math.floor(window.innerHeight / 2) - (this.mapData.length / 2) * this.#TILESIZE),
               this.#TILESIZE, this.#TILESIZE);
     }
 

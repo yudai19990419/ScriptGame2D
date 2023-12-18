@@ -2,11 +2,13 @@ class MapOperator extends IScreen {
     
     mapCreater = new MapCreater();
     #counter = 0;        // 内部カウンタ
+    // HACK
+    isLoading = false;
     // 座標（初期位置）
     #valueX = 16;
     #valueY = 16;
-    #playerX = 0;
-    #playerY = 0;
+    #posX = 0;
+    #posY = 0;
     #playerOrientation = this.mapCreater.pSyFront;   // プレイヤーの向き
     #frameForward;   // プレイヤーのコマ送り（ON/OFF）
     #hasKey = false;
@@ -20,30 +22,37 @@ class MapOperator extends IScreen {
 
     // 敵との遭遇時、戦闘画面へ遷移
     battle() {
-        if (MapEvent.hasEncount(this.getMapElem())) {
             clearInterval(this.#frameForward);
-            this.resetScreen(this.context);
-            this.resetScreen(this.pContext);
+            this.resetScreenAll();
 
             this.requestCode = REQUEST_CODE.BUTTLE;
             this.haveNotification = true;
-        }
     }
 
     // @Override
     // ゲーム画面の表示（マップ、プレイヤー）
     createScreen(){
-        this.resetScreenAll();
+        this.isLoading = false;
         console.log("MapOperator::createScreen()");
+        this.resetScreenAll();
         // プレイヤー画像のコマ送り
         this.#frameForward = setInterval(() => {
-            this.resetScreen(this.pContext);
-            this.mapCreater.drawPlayer(this.pContext, (this.#counter % 2) * 8, this.#playerOrientation);
+            this.displayPlayer();
             this.#counter += 1;
         }, /* mfps^{-1} */ 500);
         this.mapCreater.drawBackGround(this.context2);
-        this.mapCreater.drawMap(this.context, this.playerX, this.playerY);
+        this.mapCreater.drawMap(this.context, this.posX, this.posY);
         this.drawStatus(this.statusContext);
+    }
+
+    displayMap() {
+        this.resetScreen(this.context);
+        this.mapCreater.drawMap(this.context, this.posX, this.posY);
+    }
+
+    displayPlayer() {
+        this.resetScreen(this.pContext);
+        this.mapCreater.drawPlayer(this.pContext, (this.#counter % 2) * 8, this.#playerOrientation);
     }
 
     getNotification(){
@@ -62,12 +71,12 @@ class MapOperator extends IScreen {
         return this.#valueY;
     }
 
-    get playerX() {
-        return this.#playerX;
+    get posX() {
+        return this.#posX;
     }
 
-    get playerY() {
-        return this.#playerY;
+    get posY() {
+        return this.#posY;
     }
 
     isNotification(){
@@ -78,26 +87,33 @@ class MapOperator extends IScreen {
 
     // @Override
     inputDirection(direction){
-        switch (direction) {
-            case DIRECTION.UP.code:
-                this.#playerOrientation = this.mapCreater.pSyBack; 
-                this.move(0, -1);
-                break;
-            case DIRECTION.DOWN.code: 
-                this.#playerOrientation = this.mapCreater.pSyFront;
-                this.move(0, 1);
-                break;
-            case DIRECTION.RIGHT.code: 
-                this.#playerOrientation = this.mapCreater.pSyRight;
-                this.move(1, 0);
-                break;
-            case DIRECTION.LEFT.code: 
-                this.#playerOrientation = this.mapCreater.pSyLeft;
-                this.move(-1, 0);
-                break;
-            default: 
-                console.log(`undefined code [${direction}]`);
-                break;
+        if(!this.isLoading) {
+            switch (direction) {
+                case DIRECTION.UP.code:
+                    this.#playerOrientation = this.mapCreater.pSyBack;
+                    this.displayPlayer();
+                    this.move(0, -1);
+                    break;
+                case DIRECTION.DOWN.code: 
+                    this.#playerOrientation = this.mapCreater.pSyFront;
+                    this.displayPlayer();
+                    this.move(0, 1);
+                    break;
+                case DIRECTION.RIGHT.code: 
+                    this.#playerOrientation = this.mapCreater.pSyRight;
+                    this.displayPlayer();
+                    this.move(1, 0);
+                    break;
+                case DIRECTION.LEFT.code: 
+                    this.#playerOrientation = this.mapCreater.pSyLeft;
+                    this.displayPlayer();
+                    this.move(-1, 0);
+                    break;
+                default: 
+                    console.log(`undefined code [${direction}]`);
+                    break;
+            }
+            this.resetScreen(this.messageContext);
         }
     }
 
@@ -105,19 +121,13 @@ class MapOperator extends IScreen {
     move(x, y) {
         this.#valueX    += x;
         this.#valueY    += y;
-        this.#playerX   += x;
-        this.#playerY   += y;
         if (MapEvent.hasObstacle(this.getMapElem(), this.mapCreater.obstacle)) {
             this.#valueX  -= x;
             this.#valueY  -= y;
-            this.#playerX -= x;
-            this.#playerY -= y;
-            console.log(`Coordinate (X, Y) = (${this.valueX}, ${this.valueY})`);
         } else {
-            console.log(`Coordinate (X, Y) = (${this.valueX}, ${this.valueY})`);
-            this.occurEvent();
-            this.renewScreen();
+            this.scrollMap(x, y);
         }
+        console.log(`Coordinate (X, Y) = (${this.valueX}, ${this.valueY})`);
     }
 
     // HACK
@@ -130,9 +140,11 @@ class MapOperator extends IScreen {
                 break;
             case 10: 
             case 11: 
+                Player.getInstance().heal();
                 this.drawMessage("東の果てにも村があります。");
                 break;
             case 12:
+                Player.getInstance().heal();
                 this.drawMessage("鍵は洞窟にあります。");
                 break;
             case 13: 
@@ -145,27 +157,60 @@ class MapOperator extends IScreen {
                 if (this.#hasKey) {
                     this.drawMessage("扉が開いた。");
                 } else {
+                    // FIXME: move()後、敵出現しないように設定
                     this.move(0, -1);
                     this.drawMessage("扉を開くには鍵が必要です。");
                 }
                 break;
             case 15: 
                 this.drawMessage("魔王が現れた");
-                // clearInterval(this.#frameForward);
-                // this.resetScreen(this.pContext);
-                this.mapCreater.drawDevil(this.pContext); 
                 break;
             default: 
-                this.resetScreen(this.messageContext);
                 break;
+        }
+        this.isLoading = false;
+    }
+
+    hasEvent() {
+        const eventElem = [9, 10 , 11, 12, 13, 14, 15];
+        for (let obj of eventElem) {
+            if (this.getMapElem() == obj) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    processEvent() {
+        if (this.hasEvent()) {
+            this.occurEvent();
+        } else if (MapEvent.hasEncount(this.getMapElem())) { 
+            this.battle();
+        } else {
+            this.isLoading = false;
         }
     }
 
-    renewScreen() {
-        this.resetScreen(this.context);
-        this.mapCreater.drawMap(this.context, this.playerX, this.playerY);
-        this.resetScreen(this.pContext);
-        this.mapCreater.drawPlayer(this.pContext, (this.#counter % 2) * 8, this.#playerOrientation);
-        this.battle();
+    scrollMap(x, y) {
+        this.isLoading = true;
+        // TODO: TILESIZEの同期
+        let dx = x * 64;
+        let dy = y * 64;
+        const MOVE_VALUE  = Math.floor(dx / 64);
+        const MOVE_VALUEY = Math.floor(dy / 64);
+
+        const moveToNextTile = setInterval(() => {
+            this.#posX += MOVE_VALUE;
+            this.#posY += MOVE_VALUEY;
+            this.displayMap();
+
+            dx -= MOVE_VALUE;
+            dy -= MOVE_VALUEY;
+
+            if(dx == 0 && dy == 0) {
+                clearInterval(moveToNextTile);
+                this.processEvent();
+            }
+        }, /* mfps^{-1} */ 1);
     }
 }

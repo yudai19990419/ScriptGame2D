@@ -45,8 +45,8 @@ interface IScreen {
 }
 
 class MapOperator {
-    -playerX: int
-    -playerY: int
+    -posX: int
+    -posY: int
     -valueX: int 
     -valueY: int 
     --
