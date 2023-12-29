@@ -46,6 +46,7 @@ class GameManager {
         console.log("#checkRequestCode() : code [%i]", code);
         switch(code) {
             case REQUEST_CODE.CONTINUE :
+                this.screenDirector.init();
                 break;
             case REQUEST_CODE.HEAL:
                 this.characterManager.healPlayer();
@@ -68,6 +69,7 @@ class GameManager {
             case REQUEST_CODE.GET_KEY:
                 break;
             case REQUEST_CODE.GAME_START:
+                this.characterManager.init();
                 this.screenDirector.gameStart();
                 break;
             case REQUEST_CODE.GANE_END:

@@ -13,7 +13,7 @@ class CharacterManager {
      * 初期化関数
      */
     init(){
-        throw "実装されていません";
+        this.player.initPlayerLevel();
     }
 
     /**

@@ -24,6 +24,7 @@ class ScreenDirector extends IScreenDirector{
     // IScreenDirectorの実装
     gameStart(){
         console.log("gameStart()");
+        this.mapOperator.resetMap();
         // マップ画面を表示する
         this.moveMapScreen();
     }
@@ -38,10 +39,10 @@ class ScreenDirector extends IScreenDirector{
     // IScreenDirectorの実装
     gameOver(){
         // テスト用
-        this.init();
+        // this.init();
         // ゲームオーバー画面を表示する
-        // this.nowScreen = this.gameOver;
-        // this.nowScreen.updateScreen();
+        this.nowScreen = this.gameOverScreen;
+        this.nowScreen.updateScreen();
     }
 
     // IScreenDirectorの実装
