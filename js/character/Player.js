@@ -21,8 +21,21 @@ class Player extends Character {
         this.maxExperiencePoint =         10;
     }
 
+    /**
+     * シングルトンのインスタンスを取得する関数
+     * 
+     * @returns インスタンス
+     */
     static getInstance() {
         return this.#player;
+    }
+
+    get experiencePoint() {
+        return this.experiencePoint;
+    }
+
+    get maxExperiencePoint() {
+        return this.maxExperiencePoint;
     }
 
     /**

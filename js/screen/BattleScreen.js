@@ -17,6 +17,9 @@ class BattleScreen extends IScreen {
         this.openedCommandScreen = false;
     }
 
+    /**
+     * テスト用の関数
+     */
     viewEnemyStatus() {
         console.log(`${this.opponent.name}: Lv_${this.opponent.level} HP_${this.opponent.hp} A_${this.opponent.attack}`);
     }

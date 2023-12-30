@@ -20,11 +20,12 @@ class MapOperator extends IScreen {
         this.haveNotification = false;
     } 
 
-    // 敵との遭遇時、戦闘画面へ遷移
-    battle() {
+    /**
+     * 戦闘画面へ遷移させる関数
+     */
+    transitionPage() {
             clearInterval(this.#frameForward);
             this.resetScreenAll();
-
             this.requestCode = REQUEST_CODE.BUTTLE;
             this.haveNotification = true;
     }
@@ -117,10 +118,17 @@ class MapOperator extends IScreen {
         }
     }
 
-    // 引数の値だけプレイヤーを移動
+
+    /**
+     * 引数の値だけプレイヤーを移動させる関数
+     * 
+     * @param {int} x 水平方向の値（右方向が正）
+     * @param {int} y 垂直方向の値（下方向が正）
+     */
     move(x, y) {
         this.#valueX    += x;
         this.#valueY    += y;
+        // 移動した先が障害物の場合
         if (MapEvent.hasObstacle(this.getMapElem(), this.mapCreater.obstacle)) {
             this.#valueX  -= x;
             this.#valueY  -= y;
@@ -185,7 +193,7 @@ class MapOperator extends IScreen {
         if (this.hasEvent()) {
             this.occurEvent();
         } else if (MapEvent.hasEncount(this.getMapElem())) { 
-            this.battle();
+            this.transitionPage();
         } else {
             this.isLoading = false;
         }

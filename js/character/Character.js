@@ -1,12 +1,11 @@
 class Character {
 
     status = new CharacterStatus();
-    // TODO: getter,setter作成
-    maxHp;
-    hp;
-    level;
-    attack;
-    deffence;
+    #maxHp;
+    #hp;
+    #level;
+    #attack;
+    #deffence;
     // speed;
     // luck;
     
@@ -14,8 +13,44 @@ class Character {
         this.image = null;
     }
 
+    get maxHp() {
+        return this.#maxHp;
+    }
+
     get hp() {
-        return this.hp;
+        return this.#hp;
+    }
+    
+    get level() {
+        return this.#level;
+    }
+
+    get attack() {
+        return this.#attack;
+    }
+
+    get deffence() {
+        return this.#deffence;
+    }
+
+    set maxHp(maxHp) {
+        this.#maxHp = maxHp;
+    }
+
+    set hp(hp) {
+        this.#hp = hp;
+    }
+
+    set level(level) {
+        this.#level = level;
+    }
+
+    set attack(attack) {
+        this.#attack = attack;
+    }
+
+    set deffence(deffence) {
+        this.#deffence = deffence;
     }
     
     /**
@@ -32,14 +67,13 @@ class Character {
      * @returns {int} 残りHP
      */
     attackTarget(target){
-        console.log(`attack() :`);
+        console.log(`Character::attack()`);
         // HPに攻撃ダメージを与える
         target.hp -= this.calcDamage(target);
         // HPがマイナス値になった場合
         if(target.hp < 0){
             target.hp = 0;
         }
-        // return this.hp;
     }
 
     /**

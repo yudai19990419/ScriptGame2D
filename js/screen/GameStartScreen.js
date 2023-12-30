@@ -12,9 +12,6 @@ class GameStartScreen extends IScreen {
         console.log("GameStartScreen::createScreen()");
         // 画面をクリアする
         this.resetScreen(this.context);
-        // TEST
-        // Illustrator.getInstance().drawGarashi(this.context);
-        
         this.context.fillStyle = "#000000"; // 背景色を黒にする
         this.context.fillRect(0, 0, this.width, this.height);
 
