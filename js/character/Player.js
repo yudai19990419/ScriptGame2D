@@ -12,6 +12,14 @@ class Player extends Character {
     // TODO: 一度しかインスタンス生成できないよう修正
     constructor() {
         super();
+        this.initPlayerLevel();
+    }
+
+    static getInstance() {
+        return this.#player;
+    }
+
+    initPlayerLevel(){
         this.maxHp              =         10;
         this.hp                 = this.maxHp;
         this.level              =          1;

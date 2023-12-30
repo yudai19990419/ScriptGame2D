@@ -12,14 +12,24 @@ class GameStartScreen extends IScreen {
         console.log("GameStartScreen::createScreen()");
         // 画面をクリアする
         this.resetScreen(this.context);
-        this.context.fillStyle = "#000000"; // 背景色を黒にする
-        this.context.fillRect(0, 0, this.width, this.height);
-
-        this.context.font      = "50px monospace";
-	    this.context.fillStyle = "#ffffff";
-        this.context.fillText("Press ENTER", 40, 70);
+        // 画像の表示
+        let imgGara = Illustrator.getInstance().imgGaraDt;
+        this.context.drawImage(imgGara, 0, 0, imgGara.width, imgGara.height, 0, 0, window.innerWidth, window.innerHeight);
+        
+        this.context.font      = "200px serif";
+        this.context.strokeStyle = '#43b885';
+        this.context.lineWidth = 2;
+        this.context.strokeText("イガラシクエスト", window.innerWidth / 2, 200);
+        this.context.textAlign = "center";
+        
+        this.context.font      = "100px monospace";
+        this.context.fillStyle = "#000000";
+        this.context.fillText("Enterでゲームスタート", window.innerWidth / 2, window.innerHeight / 4 * 3);
+        
+        // this.context.fillStyle = "#000000"; // 背景色を黒にする
+        // this.context.fillRect(0, 0, this.width, this.height);
     }
-
+    
     // IScreenの実装
     inputDirection(direction){
         if(direction == DIRECTION.ENTER.code){

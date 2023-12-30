@@ -93,7 +93,7 @@ class BattleScreen extends IScreen {
     win() {
         this.player.addExperiencePoint(this.opponent.dropExperiencePoint);
         this.initBattleSystem();
-        this.requestCode      = REQUEST_CODE.GAME_START;
+        this.requestCode      = REQUEST_CODE.RETURN_MAP;
         this.haveNotification = true;
     }
 

@@ -144,7 +144,9 @@ class MapOperator extends IScreen {
             case  9: 
                 Player.getInstance().heal();
                 this.drawStatus(this.statusContext);
-                this.drawMessage("魔王を倒して！");
+                this.drawMessage("魔王を倒して！はいこれ回復薬！！\nHPが全回復した。");
+                this.haveNotification = true;
+                this.requestCode = REQUEST_CODE.HEAL;
                 break;
             case 10: 
             case 11: 
@@ -220,5 +222,17 @@ class MapOperator extends IScreen {
                 this.processEvent();
             }
         }, /* mfps^{-1} */ 1);
+    }
+
+    resetMap(){
+        this.#counter = 0;        // 内部カウンタ
+        // 座標（初期位置）
+        this.#valueX = 16;
+        this.#valueY = 16;
+        this.#posX = 0;
+        this.#posY = 0;
+        this.#playerOrientation = this.mapCreater.pSyFront;   // プレイヤーの向き
+        this.#frameForward;   // プレイヤーのコマ送り（ON/OFF）
+        this.#hasKey = false;
     }
 }
