@@ -201,27 +201,60 @@ class MapOperator extends IScreen {
         }
     }
 
+    /**
+     * 画面上のマップをスクロールする関数
+     * @param {int} x 水平方向へ移動するピクセル数（x>0: 右方向） 
+     * @param {int} y 垂直方向へ移動するピクセル数 (y>0: 下方向)
+     */
     scrollMap(x, y) {
         this.isLoading = true;
         // TODO: TILESIZEの同期
-        let dx = x * 64;
-        let dy = y * 64;
-        const MOVE_VALUE  = Math.floor(dx / 64);
-        const MOVE_VALUEY = Math.floor(dy / 64);
-
+        const TILESIZE = 64;
+        let dx = Math.abs(x * TILESIZE);
+        let dy = Math.abs(y * TILESIZE);
+        let time = 0;
         const moveToNextTile = setInterval(() => {
-            this.#posX += MOVE_VALUE;
-            this.#posY += MOVE_VALUEY;
+            time++;
+            let value = this.#uniformAccelerationMotion(1, 0, time);
+            if (dx == 0) {
+                if (value > dy) {
+                    value = dy;
+                }
+                if (y < 0) {
+                    this.#posY -= value;
+                } else {
+                    this.#posY += value;
+                }
+                dy -= value;
+            } else if (dy == 0) {
+                if (value > dx) {
+                    value = dx;
+                }
+                if (x < 0) {
+                    this.#posX -= value;
+                } else {
+                    this.#posX += value;
+                }
+                dx -= value;
+            }
             this.displayMap();
-
-            dx -= MOVE_VALUE;
-            dy -= MOVE_VALUEY;
 
             if(dx == 0 && dy == 0) {
                 clearInterval(moveToNextTile);
                 this.processEvent();
             }
-        }, /* mfps^{-1} */ 1);
+        }, /* mfps^{-1} */ 30);
+    }
+
+    /**
+     * 等加速度運動 
+     * @param {int} acceleration 加速度
+     * @param {int} initialVelocity 初速度
+     * @param {int} time 時間
+     * @returns 
+     */
+    #uniformAccelerationMotion(acceleration, initialVelocity, time) {
+        return 1 / 2 * acceleration * time * time + initialVelocity * time;
     }
 
     resetMap(){

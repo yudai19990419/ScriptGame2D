@@ -19,12 +19,13 @@ class GameStartScreen extends IScreen {
         this.context.font      = "200px serif";
         this.context.strokeStyle = '#43b885';
         this.context.lineWidth = 2;
-        this.context.strokeText("イガラシクエスト", window.innerWidth / 2, 200);
+        this.context.strokeText("イガラシクエスト", window.innerWidth / 2, 200, window.innerWidth);
         this.context.textAlign = "center";
         
         this.context.font      = "100px monospace";
         this.context.fillStyle = "#000000";
-        this.context.fillText("Enterでゲームスタート", window.innerWidth / 2, window.innerHeight / 4 * 3);
+        this.context.fillText("Enterでゲームスタート",
+         window.innerWidth / 2, window.innerHeight / 4 * 3.5, window.innerWidth? window.innerWidth / 2:none);
         
         // this.context.fillStyle = "#000000"; // 背景色を黒にする
         // this.context.fillRect(0, 0, this.width, this.height);

@@ -13,7 +13,6 @@ class BattleScreen extends IScreen {
         this.haveNotification = false;
         this.image = new Image();
         this.image.src = "img/monster.png";
-        // this.corrdinate = null;
         this.openedCommandScreen = false;
     }
 
@@ -89,7 +88,9 @@ class BattleScreen extends IScreen {
         }
     }
 
-    // 戦闘勝利時の処理
+    /**
+     * 戦闘勝利時の処理を行う関数
+     */
     win() {
         this.player.addExperiencePoint(this.opponent.dropExperiencePoint);
         this.initBattleSystem();
@@ -97,7 +98,9 @@ class BattleScreen extends IScreen {
         this.haveNotification = true;
     }
 
-    // 戦闘敗北時の処理
+    /**
+     * 戦闘敗北時の処理を行う関数
+     */
     lose() {
         this.resetScreenAll();
         this.requestCode      = REQUEST_CODE.GAME_OVER;

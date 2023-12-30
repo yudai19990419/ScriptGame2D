@@ -58,6 +58,9 @@ class Player extends Character {
         }
     }
 
+    /**
+     * レベルアップ時の処理を行う関数
+     */
     levelUp() {
         console.log(`LEVEL UP!!`)
         this.level++;
@@ -66,6 +69,9 @@ class Player extends Character {
         this.confirmCurrentStatus();
     }
 
+    /**
+     * 現在のステータスをコンソールに表示する関数
+     */
     confirmCurrentStatus() {
         console.log(`MAX_HP  : ${this.maxHp}`);
         console.log(`HP      : ${this.hp}`);

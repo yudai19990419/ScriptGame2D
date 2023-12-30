@@ -110,7 +110,7 @@ class Character {
 
     /**
      * 回復関数
-     * HPを10回復する
+     * HPを全回復する
      */
     heal(){
         // if(this.hp + 10 <= this.maxHp){
