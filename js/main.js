@@ -15,7 +15,7 @@ window.onload = function(){
         manager.job();
     }, gFrame);
 
-    function inputIvent(event) {
+    function inputEvent(event) {
         manager.input(event);
     }
 
@@ -25,6 +25,6 @@ window.onload = function(){
 
     // TODO:ここが動かないため修正必須
     // 非同期の処理のため、クラスが定義されていないことになる
-    document.addEventListener('keydown', inputIvent);
+    document.addEventListener('keydown', inputEvent);
     window.addEventListener( "resize", function(){ resize() } );
 }

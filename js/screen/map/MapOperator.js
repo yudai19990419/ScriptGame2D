@@ -2,7 +2,7 @@ class MapOperator extends IScreen {
     
     mapCreater = new MapCreater();
     #counter = 0;        // 内部カウンタ
-    // HACK
+    // HACK: 排他制御
     isLoading = false;
     // 座標（初期位置）
     #valueX = 16;
@@ -85,37 +85,38 @@ class MapOperator extends IScreen {
         this.haveNotification = false;
         return ret;
     }
-
     // @Override
     inputDirection(direction){
-        if(!this.isLoading) {
-            switch (direction) {
-                case DIRECTION.UP.code:
-                    this.#playerOrientation = this.mapCreater.pSyBack;
-                    this.displayPlayer();
-                    this.move(0, -1);
-                    break;
-                case DIRECTION.DOWN.code: 
-                    this.#playerOrientation = this.mapCreater.pSyFront;
-                    this.displayPlayer();
-                    this.move(0, 1);
-                    break;
-                case DIRECTION.RIGHT.code: 
-                    this.#playerOrientation = this.mapCreater.pSyRight;
-                    this.displayPlayer();
-                    this.move(1, 0);
-                    break;
-                case DIRECTION.LEFT.code: 
-                    this.#playerOrientation = this.mapCreater.pSyLeft;
-                    this.displayPlayer();
-                    this.move(-1, 0);
-                    break;
-                default: 
-                    console.log(`undefined code [${direction}]`);
-                    break;
-            }
-            this.resetScreen(this.messageContext);
+        // キー入力を受け付けていない場合
+        if(this.isLoading) {
+            return;
         }
+        switch (direction) {
+            case DIRECTION.UP.code:
+                this.#playerOrientation = this.mapCreater.pSyBack;
+                this.displayPlayer();
+                this.move(0, -1);
+                break;
+            case DIRECTION.DOWN.code: 
+                this.#playerOrientation = this.mapCreater.pSyFront;
+                this.displayPlayer();
+                this.move(0, 1);
+                break;
+            case DIRECTION.RIGHT.code: 
+                this.#playerOrientation = this.mapCreater.pSyRight;
+                this.displayPlayer();
+                this.move(1, 0);
+                break;
+            case DIRECTION.LEFT.code: 
+                this.#playerOrientation = this.mapCreater.pSyLeft;
+                this.displayPlayer();
+                this.move(-1, 0);
+                break;
+            default: 
+                console.log(`undefined code [${direction}]`);
+                break;
+        }
+        this.resetScreen(this.messageContext);
     }
 
 

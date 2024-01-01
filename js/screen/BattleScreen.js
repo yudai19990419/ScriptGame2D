@@ -3,7 +3,6 @@ class BattleScreen extends IScreen {
     arrowIndex = 0;
     player   = Player.getInstance();
     opponent;
-    // playerTurn;
     mapOperator = new MapOperator();
 
     constructor(){
@@ -65,26 +64,30 @@ class BattleScreen extends IScreen {
         this.arrowIndex = 0;
     }
 
+    /**
+     * 入力されたコマンドを実行する関数
+     * @returns コマンド実行結果による画面遷移
+     */
     executeCommand() {
-        // HACK: IFのネスト
         if(this.arrowIndex == 0) {
             console.log("COMMAND: ATTACK");
             this.player.attackTarget(this.opponent);
             console.log(`HP: ${this.opponent.hp}`);
-            if (this.opponent.hp == 0) {
-                this.win();
-            } else {
-                this.opponent.attackTarget(this.player);
-                this.drawStatus(this.statusContext);
-                if(this.player.hp == 0) {
-                    this.lose();
-                }
-            }
         } else {
             console.log("COMMAND: ESCAPE");
             this.initBattleSystem();
             this.requestCode = REQUEST_CODE.ESCAPE_SUCCESS;
             this.haveNotification = true;
+            return;
+        }
+        if (this.opponent.hp == 0) {
+            return this.win();
+        } 
+        // 敵の攻撃
+        this.opponent.attackTarget(this.player);
+        this.drawStatus(this.statusContext);
+        if(this.player.hp == 0) {
+            return this.lose();
         }
     }
 
@@ -139,14 +142,7 @@ class BattleScreen extends IScreen {
             this.requestCode = REQUEST_CODE.ESCAPE_SUCCESS;
             return;
         }
-
         this.drawMessage("逃げられませんでした。");
-    }
-
-    setEnemyImage(imagePath, corrdinate){
-        console.log("setEnemyImage");
-        this.corrdinate = corrdinate;
-        // this.#drawEnemyImage();
     }
 
     /**
@@ -199,9 +195,6 @@ class BattleScreen extends IScreen {
 
     #drawEnemyImage(){
         console.log("drawEnemyImage()");
-        // if(this.image == null || this.corrdinate == null){
-        //     return;
-        // }
         this.pContext.drawImage(this.image, this.image.width / 4 * this.opponent.sx, 0,
              this.image.width / 4, this.image.height, Math.floor(window.innerWidth / 2), Math.floor(window.innerHeight /2), 64, 64);
     }

@@ -108,13 +108,12 @@ class ScreenDirector extends IScreenDirector{
     }
 
     // IScreenDirectorの実装
-    setEnemy(image, corrdinate, status){
-        if(this.nowScreen != null){
-            this.nowScreen.setEnemyStatus(status);
-        }
-
-        this.battleScreen.setEnemyImage(image, corrdinate);
-    }
+    // setEnemy(image, corrdinate, status){
+    //     if(this.nowScreen != null){
+    //         this.nowScreen.setEnemyStatus(status);
+    //     }
+        // this.battleScreen.setEnemyImage(image, corrdinate);
+    // }
 
     // IScreenDirectorの実装
     setEscapeResult(result){

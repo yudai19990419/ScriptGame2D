@@ -12,11 +12,6 @@ class GameManager {
         // スクリーンを初期化する
         this.screenDirector.init();
     }
-
-    // getCounter() {
-    //     return this.counter;
-    // }
-
     
     /**
      * 画面サイズの設定関数
