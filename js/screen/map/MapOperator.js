@@ -182,6 +182,7 @@ class MapOperator extends IScreen {
         this.isLoading = false;
     }
 
+    // TODO: Strategyパターンを使う
     hasEvent() {
         const eventElem = [9, 10 , 11, 12, 13, 14, 15];
         for (let obj of eventElem) {
