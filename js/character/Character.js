@@ -70,7 +70,6 @@ class Character {
         console.log(`Character::attack()`);
         // HPに攻撃ダメージを与える
         target.hp -= this.calcDamage(target);
-        // HPがマイナス値になった場合
         if(target.hp < 0){
             target.hp = 0;
         }

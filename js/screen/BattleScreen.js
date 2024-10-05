@@ -4,6 +4,7 @@ class BattleScreen extends IScreen {
     player   = Player.getInstance();
     opponent;
     mapOperator = new MapOperator();
+    #SECONDS_TO_DISPLAY = 1;
 
     constructor(){
         super();
@@ -15,13 +16,6 @@ class BattleScreen extends IScreen {
         this.openedCommandScreen = false;
     }
 
-    /**
-     * テスト用の関数
-     */
-    viewEnemyStatus() {
-        console.log(`${this.opponent.name}: Lv_${this.opponent.level} HP_${this.opponent.hp} A_${this.opponent.attack}`);
-    }
-
     // IScreenの実装
     createScreen(){
         console.log("BattleScreen::createScreen()");
@@ -29,7 +23,7 @@ class BattleScreen extends IScreen {
         this.context.fillRect(0, 0, this.width, this.height);
 
         this.opponent = CharacterManager.createEnemy(this.mapOperator.getMapElem());
-        this.viewEnemyStatus();
+        console.log(`${this.opponent.name}: Lv_${this.opponent.level} HP_${this.opponent.hp} A_${this.opponent.attack}`);
         this.drawStatus(this.statusContext);
         this.drawMessage(`${this.opponent.name}が現れた`);
         this.#drawEnemyImage();
@@ -68,11 +62,16 @@ class BattleScreen extends IScreen {
      * 入力されたコマンドを実行する関数
      * @returns コマンド実行結果による画面遷移
      */
-    executeCommand() {
+    async executeCommand() {
         if(this.arrowIndex == 0) {
             console.log("COMMAND: ATTACK");
-            this.player.attackTarget(this.opponent);
-            console.log(`HP: ${this.opponent.hp}`);
+            // TODO: 与ダメージ量を表示する
+            await this.showBattleDialog(`プレイヤーの攻撃`, this.#SECONDS_TO_DISPLAY,
+                () => {
+                    this.player.attackTarget(this.opponent);
+                    console.log(`HP: ${this.opponent.hp}`);     
+                }
+            );
         } else {
             console.log("COMMAND: ESCAPE");
             this.initBattleSystem();
@@ -84,11 +83,34 @@ class BattleScreen extends IScreen {
             return this.win();
         } 
         // 敵の攻撃
-        this.opponent.attackTarget(this.player);
-        this.drawStatus(this.statusContext);
+        await this.showBattleDialog(`${this.opponent.name}の攻撃`, this.#SECONDS_TO_DISPLAY,  
+                    () => {
+                        this.opponent.attackTarget(this.player);
+                        this.drawStatus(this.statusContext);
+                        this.#drawCommand()
+                    }
+                );
         if(this.player.hp == 0) {
             return this.lose();
-        }
+        } 
+    }
+
+    /**
+     * 戦闘ダイアログの表示を行う関数
+     * @param {string} msg 表示するメッセージ
+     * @param {number} sec 表示する秒数
+     * @param {any} callback ダイアログ表示中に実行する関数
+     * @returns {Promise}
+     */
+    async showBattleDialog(msg, sec, callback) {
+        return new Promise((resolve) => {
+            this.drawMessage(msg);
+            setTimeout(() => {
+                this.resetScreen(this.messageContext);
+                callback();
+                resolve();
+            }, sec * 1000);
+        });
     }
 
     /**
