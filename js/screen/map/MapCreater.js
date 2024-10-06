@@ -15,10 +15,10 @@
 
     constructor () {
         // 画像の読み込み
-        this.imgMap    = new Image();
-        this.imgPlayer = new Image();
-        this.imgMap.src    = "img/map.png"; // マップ画像のパス
-        this.imgPlayer.src = "img/player.png";    //プレイヤー画像のパス
+        this.imgMap    = Illustrator.getInstance().imgMap;
+        this.imgPlayer = Illustrator.getInstance().imgPlayer;
+        // this.imgMap.src    = "img/map.png"; // マップ画像のパス
+        // this.imgPlayer.src = "img/player.png";    //プレイヤー画像のパス
     }
     
     get pSyFront() {

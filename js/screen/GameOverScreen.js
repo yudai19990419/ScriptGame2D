@@ -12,8 +12,8 @@ class GameOverScreen extends IScreen {
         this.resetScreen(this.context);
         let canvas = document.getElementById("main");
         let ctx = canvas.getContext("2d");
-        let imgGara = new Image();
-        imgGara.src = "img/garashi.png";
+        let imgGara = Illustrator.getInstance().imgGara;
+        // imgGara.src = "img/garashi.png";
         imgGara.onload = function() {
             ctx.drawImage(imgGara, 0, 0, imgGara.width, imgGara.height, 0, 0, window.innerWidth, window.innerHeight);
             ctx.font      = "120px monospace";
