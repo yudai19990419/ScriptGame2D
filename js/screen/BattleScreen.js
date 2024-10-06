@@ -1,18 +1,15 @@
 class BattleScreen extends IScreen {
-
     arrowIndex = 0;
     player   = Player.getInstance();
     opponent;
-    mapOperator = new MapOperator();
     #SECONDS_TO_DISPLAY = 1;
+    mapElem;
 
     constructor(){
         super();
         this.init();
         this.requestCode = -1;
         this.haveNotification = false;
-        this.image = new Image();
-        this.image.src = "img/monster.png";
         this.openedCommandScreen = false;
     }
 
@@ -21,12 +18,12 @@ class BattleScreen extends IScreen {
         console.log("BattleScreen::createScreen()");
         this.context.fillStyle = "#000000"; // 背景色を黒にする
         this.context.fillRect(0, 0, this.width, this.height);
-
-        this.opponent = CharacterManager.createEnemy(this.mapOperator.getMapElem());
+        
+        this.opponent = CharacterManager.createEnemy(this.mapElem);
         console.log(`${this.opponent.name}: Lv_${this.opponent.level} HP_${this.opponent.hp} A_${this.opponent.attack}`);
         this.drawStatus(this.statusContext);
         this.drawMessage(`${this.opponent.name}が現れた`);
-        this.#drawEnemyImage();
+        this.#drawEnemyImage(this.opponent.image);
     }
 
     // IScreenの実装
@@ -215,9 +212,18 @@ class BattleScreen extends IScreen {
         })
     }
 
-    #drawEnemyImage(){
-        console.log("drawEnemyImage()");
-        this.pContext.drawImage(this.image, this.image.width / 4 * this.opponent.sx, 0,
-             this.image.width / 4, this.image.height, Math.floor(window.innerWidth / 2), Math.floor(window.innerHeight /2), 64, 64);
+    /**
+     * 敵の姿を表示する
+     * @param {Image} image 敵の画像 
+     */
+    #drawEnemyImage(image){
+        // TODO: 画像サイズの統一を行う
+        if (image.width < 500) {
+            this.pContext.drawImage(image, image.width / 4 * this.opponent.sx, 0, image.width / 4, image.height,
+                Math.floor(window.innerWidth / 2), Math.floor(window.innerHeight /2), 64 /* tileSize */, 64 /*tileSize*/);
+        } else {
+            this.pContext.drawImage(image, 0, 0, image.width, image.height,
+                Math.floor(window.innerWidth / 2), Math.floor(window.innerHeight /2), 64 /* tileSize */, 64 /*tileSize*/);
+        }
     }
 }

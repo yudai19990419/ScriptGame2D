@@ -38,8 +38,6 @@ class ScreenDirector extends IScreenDirector{
 
     // IScreenDirectorの実装
     gameOver(){
-        // テスト用
-        // this.init();
         // ゲームオーバー画面を表示する
         this.nowScreen = this.gameOverScreen;
         this.nowScreen.updateScreen();
@@ -49,6 +47,7 @@ class ScreenDirector extends IScreenDirector{
     battleStart(){
         // 戦闘画面を表示する
         this.nowScreen = this.battleScreen;
+        this.battleScreen.mapElem = this.getMapElem();
         this.nowScreen.updateScreen();
     }
 

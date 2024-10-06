@@ -3,16 +3,12 @@ class Enemy extends Character {
     name;
     // TODO: 敵キャラ個別に設定
     dropExperiencePoint = 5;
+    image;
 
     constructor() {
         super();
-        // 逃げれる確率
-        this.escapeProbability = 100;
-        
-        this.image = new Image();
-        this.image.src = "img/monster.png"; // 敵キャラ画像のパス
-        this.imagePath = "img/monster.png"
-        this.imageCorrdinate = [0,0];
+        // TODO: 各キャラで個別に設定
+        this.escapeProbability = 100;        
     }
 
     /**
@@ -37,15 +33,5 @@ class Enemy extends Character {
         }
 
         return probability[Math.floor(Math.random(probability.length))];
-    }
-
-    // Characterのオーバーライド
-    getImage(){
-        return this.imagePath;
-    }
-
-    // Characterのオーバーライド
-    getImageCorrdinate(){
-        return this.imageCorrdinate;
     }
 }

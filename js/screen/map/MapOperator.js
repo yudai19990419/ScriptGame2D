@@ -122,7 +122,6 @@ class MapOperator extends IScreen {
 
     /**
      * 引数の値だけプレイヤーを移動させる関数
-     * 
      * @param {int} x 水平方向の値（右方向が正）
      * @param {int} y 垂直方向の値（下方向が正）
      */
@@ -175,6 +174,7 @@ class MapOperator extends IScreen {
                 break;
             case 15: 
                 this.drawMessage("魔王が現れた");
+                this.transitionPage();
                 break;
             default: 
                 break;

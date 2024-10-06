@@ -1,5 +1,4 @@
 class Slime extends Enemy {
-
     sx = 0;
 
     constructor(level) {
@@ -11,7 +10,7 @@ class Slime extends Enemy {
         this.attack   = 1;
         this.deffence = 1;
         this.level    = level;
-
+        this.image = Illustrator.getInstance().imgMonster;
         this.escapeProbability = 60;
         this.init();
     }

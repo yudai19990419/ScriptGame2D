@@ -110,14 +110,14 @@ class CharacterManager {
      * @param {MapElem} mapElem マップ要素(Enum)
      */
     static loadEnemy(mapElem){
-        console.log("loadEnemy()");
         var enemyList = [];
         var playerLv = Player.getInstance().level;
+        // FIXME: 初期値を1にしたい
         var maxLv = 0;
         var minLv = 0;
         switch(mapElem){
             case MAP_ELEM.PLAIN:
-                enemyList = [ENEMY.SLIME, ENEMY.SLIME, ENEMY.SLIME, ENEMY.RABBIT, ENEMY.RABBIT, ENEMY.RABBIT, ENEMY.THIEF];
+                enemyList = [ENEMY.SLIME, ENEMY.SLIME, ENEMY.SLIME, ENEMY.RABBIT, ENEMY.RABBIT, ENEMY.RABBIT, ENEMY.KNIGHT];
                 maxLv = playerLv + 3;
                 minLv = playerLv - 3;
                 break;
@@ -130,6 +130,11 @@ class CharacterManager {
                 enemyList = [ENEMY.SLIME, ENEMY.RABBIT, ENEMY.THIEF, ENEMY.THIEF, ENEMY.KNIGHT];
                 maxLv = playerLv + 7;
                 minLv = playerLv - 2;
+                break;
+            case MAP_ELEM.BOSS:
+                enemyList = [ENEMY.BOSS];
+                // FIXME: ボスのステータスはレベル依存でないため、レベルは設定しない
+                maxLv = 10;
                 break;
             default:
                 console.log("error map elem");
@@ -158,7 +163,6 @@ class CharacterManager {
      */
     static createEnemy(mapElem){
         this.loadEnemy(mapElem);
-        console.log(`CharacterManager.createEnemy : enemy_${this.enemyNum}, level_${this.enemyLv}`);
         switch(this.enemySpecies){
             case ENEMY.SLIME:
                 return new Slime(this.enemyLv);
@@ -168,6 +172,8 @@ class CharacterManager {
                 return new Thief(this.enemyLv);
             case ENEMY.KNIGHT:
                 return new Knight(this.enemyLv);
+            case ENEMY.BOSS:
+                return new Boss(this.enemyLv);
             default:
                 console.log("undefined enemy [%i]", this.enemyNum);
         }

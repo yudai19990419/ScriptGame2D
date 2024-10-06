@@ -1,13 +1,13 @@
 class Boss extends Enemy{
-    constructor() {
+    constructor(level) {
+        super();
         this.name     = "魔王";
-        this.maxHP    = 999;
+        this.maxHP    = 1;
         this.hp       = this.maxHP;
-        this.attack   = 999;
-        this.deffence = 999;
+        this.attack   = 1;
+        this.deffence = 1;
         this.level    = level;
-
+        this.image = Illustrator.getInstance().imgDevil;
         this.escapeProbability = 0;
-        this.init();
     }
 }

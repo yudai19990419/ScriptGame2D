@@ -1,5 +1,4 @@
 class Rabbit extends Enemy {
-
     sx = 1;
 
     constructor(level) {
@@ -11,7 +10,7 @@ class Rabbit extends Enemy {
         this.attack   = 2;
         this.deffence = 2;
         this.level    = level;
-
+        this.image = Illustrator.getInstance().imgMonster;
         this.escapeProbability = 30;
         this.init();
     }

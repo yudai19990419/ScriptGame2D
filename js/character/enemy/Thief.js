@@ -1,5 +1,4 @@
 class Thief extends Enemy {
-
     sx = 3;
     
     constructor(level) {
@@ -11,7 +10,7 @@ class Thief extends Enemy {
         this.attack   = 5;
         this.deffence = 1;
         this.level    = level;
-
+        this.image = Illustrator.getInstance().imgMonster;
         this.escapeProbability = 40;
         this.init();
     }

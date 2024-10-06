@@ -1,7 +1,7 @@
-// 画像読み込み用のクラス
 class Illustrator {
 
     static illustrator = new Illustrator();
+    #TILESIZE = 64
 
     constructor() {
         console.log("Game image is loaded")
@@ -14,8 +14,8 @@ class Illustrator {
         this.imgDevil  = new Image();
         this.imgDevil.src  = "img/Devil.png";
 
-        this.imgBattleEffect = new Image();
-        this.imgBattleEffect.src = "img/effect/battle/btleffect1.png";
+        this.imgMonster = new Image();
+        this.imgMonster.src = "img/monster.png"
 
         // this.imgMap    = new Image();
         // this.imgPlayer = new Image();
@@ -30,11 +30,4 @@ class Illustrator {
     static getInstance() {
         return this.illustrator;
     }
-
-    // Test用
-    // drawDevil(context) {
-    //     console.log("drawDevil")
-    //     context.drawImage(this.imgDevil, 0, 0, 500, 500, 
-    //         Math.floor(window.innerWidth / 2), Math.floor(window.innerHeight / 2), this.#TILESIZE, this.#TILESIZE);
-    // }
 }

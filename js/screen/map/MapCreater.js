@@ -91,7 +91,13 @@
         }
     };
 
-    // プレイヤーの描画処理
+    
+    /**
+     * プレイヤーの描画処理
+     * @param {*} context 
+     * @param {*} pSx 
+     * @param {*} pSy 
+     */
     drawPlayer(context, pSx, pSy) {
         context.drawImage(this.imgPlayer, pSx, pSy, this.#PLAYER_WIDTH, this.#PLAYER_HEIGHT,
               Math.floor(window.innerWidth / 2), Math.floor(window.innerHeight / 2), this.#TILESIZE, this.#TILESIZE);

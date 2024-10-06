@@ -48,7 +48,6 @@ class GameManager {
                 break;
             case REQUEST_CODE.BUTTLE:
                 this.screenDirector.battleStart();
-                // this.characterManager.buttleStart(this.screenDirector.getMapElem());
                 break;
             case REQUEST_CODE.ATTACK_PLAYER:
                 this.characterManager.attackPlayer();
