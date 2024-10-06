@@ -13,7 +13,7 @@ class GameStartScreen extends IScreen {
         // 画面をクリアする
         this.resetScreen(this.context);
         // 画像の表示
-        let imgGara = Illustrator.getInstance().imgGaraDt;
+        let imgGara = ImageRepository.getInstance().imgGaraDt;
         this.context.drawImage(imgGara, 0, 0, imgGara.width, imgGara.height, 0, 0, window.innerWidth, window.innerHeight);
         
         this.context.font      = "200px serif";

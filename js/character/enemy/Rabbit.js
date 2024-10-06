@@ -10,7 +10,7 @@ class Rabbit extends Enemy {
         this.attack   = 2;
         this.deffence = 2;
         this.level    = level;
-        this.image = Illustrator.getInstance().imgMonster;
+        this.image = ImageRepository.getInstance().imgMonster;
         this.escapeProbability = 30;
         this.init();
     }

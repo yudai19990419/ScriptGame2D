@@ -7,7 +7,7 @@ class Boss extends Enemy{
         this.attack   = 1;
         this.deffence = 1;
         this.level    = level;
-        this.image = Illustrator.getInstance().imgDevil;
+        this.image = ImageRepository.getInstance().imgDevil;
         this.escapeProbability = 0;
     }
 }

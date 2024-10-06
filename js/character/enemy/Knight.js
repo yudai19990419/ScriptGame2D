@@ -10,7 +10,7 @@ class Knight extends Enemy {
         this.attack   = 7;
         this.deffence = 4;
         this.level    = level;
-        this.image = Illustrator.getInstance().imgMonster;
+        this.image = ImageRepository.getInstance().imgMonster;
         this.escapeProbability = 20;
         this.init();
     }

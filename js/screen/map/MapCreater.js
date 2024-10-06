@@ -15,8 +15,8 @@
 
     constructor () {
         // 画像の読み込み
-        this.imgMap    = Illustrator.getInstance().imgMap;
-        this.imgPlayer = Illustrator.getInstance().imgPlayer;
+        this.imgMap    = ImageRepository.getInstance().imgMap;
+        this.imgPlayer = ImageRepository.getInstance().imgPlayer;
         // this.imgMap.src    = "img/map.png"; // マップ画像のパス
         // this.imgPlayer.src = "img/player.png";    //プレイヤー画像のパス
     }
